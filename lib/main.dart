@@ -31,8 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //    body: SafeArea(
-        //Home Page View
+        //     body: SafeArea(
         //         child: Column(
         //   crossAxisAlignment: CrossAxisAlignment.center,
         //   children: [
@@ -107,16 +106,20 @@ class _HomePageState extends State<HomePage> {
         //               .copyWith(color: Colors.white)),
         //     ),
         //   ],
-        // )
-        //)
+        // )));
+
+        // WiFi Setup Page
         appBar: AppBar(title: Text('WiFi Setup')),
         body: Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  padding: EdgeInsets.all(8.0),
-                  margin: EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.symmetric(vertical: 15.0),
                   alignment: Alignment.center,
                   child: Text(
                     'Please insert your WiFi Credentials below',
@@ -125,27 +128,89 @@ class _HomePageState extends State<HomePage> {
                         .headline6!
                         .copyWith(color: Colors.black),
                   )),
-              Row(
-                children: [
-                  Container(
-                      padding: EdgeInsets.all(15.0),
-                      margin: EdgeInsets.symmetric(vertical: 30),
-                      alignment: Alignment.centerLeft,
-                      child: Text('SSID',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: Colors.black))),
-                  Flexible(
-                      child: const TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: 'SSID'),
-                  ))
-                ],
-              )
+              const TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'SSID'),
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Username'),
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Password'),
+              ),
+              Container(
+                  padding: const EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 30.0, horizontal: 15.0),
+                  alignment: Alignment.center,
+                  color: Colors.blue[600],
+                  child: Text('Continue',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: Colors.white)))
             ],
           ),
         ));
+
+    // Thingspeak Setup Page
+    // appBar: AppBar(title: const Text('ThingSpeak Setup')),
+    // body: Container(
+    //   alignment: Alignment.center,
+    //   margin: const EdgeInsets.symmetric(horizontal: 8.0),
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       Container(
+    //           padding: const EdgeInsets.all(8.0),
+    //           margin: const EdgeInsets.symmetric(vertical: 16.0),
+    //           alignment: Alignment.center,
+    //           child: Text(
+    //             'Please insert your ThingSpeak Channel Credentials below',
+    //             style: Theme.of(context)
+    //                 .textTheme
+    //                 .headline6!
+    //                 .copyWith(color: Colors.black),
+    //           )),
+    //       Container(
+    //           padding: const EdgeInsets.all(8.0),
+    //           margin: const EdgeInsets.symmetric(
+    //               vertical: 16.0, horizontal: 16.0),
+    //           alignment: Alignment.center,
+    //           color: Colors.blue[600],
+    //           child: Text('New Channel',
+    //               style: Theme.of(context)
+    //                   .textTheme
+    //                   .headline4!
+    //                   .copyWith(color: Colors.white))),
+    //       const TextField(
+    //         decoration: InputDecoration(
+    //             border: OutlineInputBorder(), labelText: 'Write API Key'),
+    //       ),
+    //       const TextField(
+    //         decoration: InputDecoration(
+    //             border: OutlineInputBorder(), labelText: 'Read API Key'),
+    //       ),
+    //       const TextField(
+    //         decoration: InputDecoration(
+    //             border: OutlineInputBorder(), labelText: 'Channel ID'),
+    //       ),
+    //       Container(
+    //           padding: const EdgeInsets.all(8.0),
+    //           margin: const EdgeInsets.symmetric(
+    //               vertical: 16.0, horizontal: 16.0),
+    //           alignment: Alignment.center,
+    //           color: Colors.blue[600],
+    //           child: Text('Continue',
+    //               style: Theme.of(context)
+    //                   .textTheme
+    //                   .headline4!
+    //                   .copyWith(color: Colors.white)))
+    //     ],
+    //   ),
+    // ));
   }
 }
