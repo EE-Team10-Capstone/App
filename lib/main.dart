@@ -20,143 +20,249 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //     body: SafeArea(
-        //         child: Column(
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: [
-        //     Container(
-        //       constraints: BoxConstraints.expand(
-        //         height:
-        //             Theme.of(context).textTheme.headline4!.fontSize! * 1 + 100.0,
-        //       ),
-        //       padding: const EdgeInsets.all(20.0),
-        //       color: Colors.blue[600],
-        //       alignment: Alignment.center,
-        //       child: Text('UA-IOTENSR',
-        //           style: Theme.of(context)
-        //               .textTheme
-        //               .headline4!
-        //               .copyWith(color: Colors.white)),
-        //     ),
-        //     Container(
-        //       constraints: BoxConstraints.expand(
-        //           height:
-        //               Theme.of(context).textTheme.headline4!.fontSize! * 1 + 50),
-        //       margin: const EdgeInsets.only(top: 50.0, right: 15.0, left: 15.0),
-        //       padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        //       color: Colors.blue[600],
-        //       alignment: Alignment.center,
-        //       child: Text('Bluetooth Connect',
-        //           style: Theme.of(context)
-        //               .textTheme
-        //               .headline4!
-        //               .copyWith(color: Colors.white)),
-        //     ),
-        //     Container(
-        //       constraints: BoxConstraints.expand(
-        //           height:
-        //               Theme.of(context).textTheme.headline4!.fontSize! * 1 + 50.0),
-        //       margin: const EdgeInsets.only(top: 50.0, right: 15.0, left: 15.0),
-        //       padding: const EdgeInsets.all(8.0),
-        //       color: Colors.blue[600],
-        //       alignment: Alignment.center,
-        //       child: Text('Device Setup',
-        //           style: Theme.of(context)
-        //               .textTheme
-        //               .headline4!
-        //               .copyWith(color: Colors.white)),
-        //     ),
-        //     Container(
-        //       constraints: BoxConstraints.expand(
-        //           height:
-        //               Theme.of(context).textTheme.headline4!.fontSize! * 1 + 50.0),
-        //       margin: const EdgeInsets.only(top: 50.0, right: 15.0, left: 15.0),
-        //       padding: const EdgeInsets.all(8.0),
-        //       color: Colors.blue[600],
-        //       alignment: Alignment.center,
-        //       child: Text('WiFi Setup',
-        //           style: Theme.of(context)
-        //               .textTheme
-        //               .headline4!
-        //               .copyWith(color: Colors.white)),
-        //     ),
-        //     Container(
-        //       constraints: BoxConstraints.expand(
-        //           height:
-        //               Theme.of(context).textTheme.headline4!.fontSize! * 1 + 50.0),
-        //       margin: const EdgeInsets.only(top: 50.0, right: 15.0, left: 15.0),
-        //       padding: const EdgeInsets.all(8.0),
-        //       color: Colors.blue[600],
-        //       alignment: Alignment.center,
-        //       child: Text('ThingSpeak Setup',
-        //           style: Theme.of(context)
-        //               .textTheme
-        //               .headline4!
-        //               .copyWith(color: Colors.white)),
-        //     ),
-        //   ],
-        // )));
-
-        // WiFi Setup Page
-        appBar: AppBar(title: Text('WiFi Setup')),
-        body: Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        appBar: AppBar(
+          title: const Text('UA-IoTENSR', style: TextStyle(fontSize: 32.0)),
+          toolbarHeight: 96.0,
+          centerTitle: true,
+        ),
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                  padding: const EdgeInsets.all(8.0),
-                  margin: const EdgeInsets.symmetric(vertical: 15.0),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Please insert your WiFi Credentials below',
+              TextButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 32.0),
+                    backgroundColor: Colors.blue[600],
+                    alignment: Alignment.center),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WiFiPage()));
+                },
+                child: Text('BlueTooth Connect ',
                     style: Theme.of(context)
                         .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.black),
-                  )),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'SSID'),
+                        .headline4!
+                        .copyWith(color: Colors.white)),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Username'),
+              TextButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 82.0),
+                    backgroundColor: Colors.blue[600]),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WiFiPage()));
+                },
+                child: Text('Device Setup',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Password'),
+              TextButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 99.5),
+                    backgroundColor: Colors.blue[600]),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WiFiPage()));
+                },
+                child: Text('WiFi Setup',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)),
               ),
-              Container(
-                  padding: const EdgeInsets.all(16.0),
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 30.0, horizontal: 15.0),
-                  alignment: Alignment.center,
-                  color: Colors.blue[600],
-                  child: Text('Continue',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white)))
+              TextButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 43.5),
+                    backgroundColor: Colors.blue[600]),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ThingSpeakPage()));
+                },
+                child: Text('ThingSpeak Setup',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 43.5),
+                    backgroundColor: Colors.blue[600]),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ThingSpeakPage()));
+                },
+                child: Text('Send To Device',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)),
+              ),
             ],
           ),
         ));
+  }
+}
 
+class WiFiPage extends StatefulWidget {
+  const WiFiPage({Key? key}) : super(key: key);
+
+  @override
+  _WiFiPageState createState() => _WiFiPageState();
+}
+
+class _WiFiPageState extends State<WiFiPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: const Text('WiFi Setup')),
+        body: Center(
+          child: Container(
+            alignment: Alignment.topCenter,
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(vertical: 15.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Please insert your WiFi Credentials below',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: Colors.black),
+                    )),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'SSID'),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Username'),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Password'),
+                ),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 132.0),
+                        backgroundColor: Colors.blue[600]),
+                    onPressed: () {},
+                    child: Text('Continue',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: Colors.white)))
+              ],
+            ),
+          ),
+        ));
+  }
+}
+
+class ThingSpeakPage extends StatefulWidget {
+  const ThingSpeakPage({Key? key}) : super(key: key);
+
+  @override
+  _ThingSpeakState createState() => _ThingSpeakState();
+}
+
+class _ThingSpeakState extends State<ThingSpeakPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: const Text('ThingSpeakPage Setup')),
+        body: Center(
+          child: Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Please insert your ThingSpeakPage Channel Credentials below',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: Colors.black),
+                    )),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 100.0),
+                      backgroundColor: Colors.blue[600]),
+                  onPressed: () {},
+                  child: Text('New Channel',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: Colors.white)),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Write API Key'),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Read API Key'),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Channel ID'),
+                ),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 132.0),
+                        backgroundColor: Colors.blue[600]),
+                    onPressed: () {},
+                    child: Text('Continue',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: Colors.white)))
+              ],
+            ),
+          ),
+        ));
+  }
+}
     // Thingspeak Setup Page
-    // appBar: AppBar(title: const Text('ThingSpeak Setup')),
+    // appBar: AppBar(title: const Text('ThingSpeakPage Setup')),
     // body: Container(
     //   alignment: Alignment.center,
     //   margin: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -169,7 +275,7 @@ class _HomePageState extends State<HomePage> {
     //           margin: const EdgeInsets.symmetric(vertical: 16.0),
     //           alignment: Alignment.center,
     //           child: Text(
-    //             'Please insert your ThingSpeak Channel Credentials below',
+    //             'Please insert your ThingSpeakPage Channel Credentials below',
     //             style: Theme.of(context)
     //                 .textTheme
     //                 .headline6!
@@ -212,5 +318,3 @@ class _HomePageState extends State<HomePage> {
     //     ],
     //   ),
     // ));
-  }
-}
