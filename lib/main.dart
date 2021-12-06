@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
               TextButton(
                 style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 43.5),
+                        vertical: 16.0, horizontal: 48.0),
                     backgroundColor: Colors.blue[600]),
                 onPressed: () {
                   Navigator.push(
@@ -116,7 +116,7 @@ class HomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const ThingSpeakPage()));
                 },
-                child: Text('Send To Device',
+                child: Text('Begin Sampling',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -181,7 +181,7 @@ class _WiFiPageState extends State<WiFiPage> {
                         style: Theme.of(context)
                             .textTheme
                             .headline4!
-                            .copyWith(color: Colors.white)))
+                            .copyWith(color: Colors.white))),
               ],
             ),
           ),
@@ -243,6 +243,71 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                 const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Channel ID'),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Text('CO2 Field'),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Text('Temperature Field'),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Text('Humidity Field'),
+                      ),
+                    ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                      child: DropdownButton<String>(
+                        alignment: Alignment.center,
+                        value: '1',
+                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                              value: value, child: Text(value));
+                        }).toList(),
+                        onChanged: (_) {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                      child: DropdownButton<String>(
+                        alignment: Alignment.center,
+                        value: '2',
+                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                              value: value, child: Text(value));
+                        }).toList(),
+                        onChanged: (_) {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                      child: DropdownButton<String>(
+                        alignment: Alignment.center,
+                        value: '3',
+                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                              value: value, child: Text(value));
+                        }).toList(),
+                        onChanged: (_) {},
+                      ),
+                    ),
+                  ],
                 ),
                 TextButton(
                     style: TextButton.styleFrom(
