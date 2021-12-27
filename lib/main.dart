@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: FlexThemeData.light(scheme: FlexScheme.deepBlue),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.deepBlue),
       home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    
+    EdgeInsets padding = const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 60);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('UA-IoTENSR', style: TextStyle(fontSize: 32.0)),
-          toolbarHeight: 96.0,
+          toolbarHeight: 80,
           centerTitle: true,
         ),
         body: Center(
@@ -36,58 +40,93 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 32.0),
-                    backgroundColor: Colors.blue[600],
-                    alignment: Alignment.center),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-                child: Text('BlueTooth Connect ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+
+                children: [
+                  SizedBox(width: 20,),
+                  ElevatedButton.icon(
+                    label: Text('BlueTooth Connect',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: Colors.white)
+                          ),
+
+                    icon: const Icon(Icons.bluetooth),
+
+                    onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WiFiPage()));
+                    },
+
+                    style: ElevatedButton.styleFrom(
+                      padding: padding,
+                      primary: Colors.lightBlue[600],
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      ),
+
+                  ),                  
+                ]
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 82.0),
-                    backgroundColor: Colors.blue[600]),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-                child: Text('Device Setup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 10,),
+                  const Icon(Icons.devices_rounded),
+                  SizedBox(width: 30,),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      padding: padding,
+                      onSurface: FlexColor.blueDarkPrimaryVariant),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const WiFiPage()));
+                    },
+                    child: Text(
+                      'Device Setup',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                    ),
+                  ),
+                ]
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 99.5),
-                    backgroundColor: Colors.blue[600]),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-                child: Text('WiFi Setup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+
+                children: [
+                  SizedBox(width: 10,),
+                  const Icon(Icons.wifi),
+                  SizedBox(width: 30,),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 99.5),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const WiFiPage()));
+                    },
+                    child: Text('WiFi Setup',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: Colors.white)),
+                  ),
+
+                ]
               ),
+
               TextButton(
                 style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
@@ -218,7 +257,6 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
-                          .copyWith(color: Colors.black),
                     )),
                 TextButton(
                   style: TextButton.styleFrom(
@@ -312,7 +350,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                 TextButton(
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 132.0),
+                            vertical: 16.0, horizontal: 100.0),
                         backgroundColor: Colors.blue[600]),
                     onPressed: () {},
                     child: Text('Continue',
