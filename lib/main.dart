@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: FlexThemeData.light(scheme: FlexScheme.deepBlue),
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.deepBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.deepBlue),
       home: const HomePage(),
     );
@@ -26,8 +27,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    EdgeInsets padding = const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 60);
+    RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
+    EdgeInsets buttonPadding = const EdgeInsets.symmetric(vertical: 16.0, horizontal: 60);
 
     return Scaffold(
         appBar: AppBar(
@@ -40,126 +41,100 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-
-                children: [
-                  SizedBox(width: 20,),
-                  ElevatedButton.icon(
-                    label: Text('BlueTooth Connect',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: Colors.white)
-                          ),
-
-                    icon: const Icon(Icons.bluetooth),
-
-                    onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WiFiPage()));
-                    },
-
-                    style: ElevatedButton.styleFrom(
-                      padding: padding,
-                      primary: Colors.lightBlue[600],
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                      ),
-
-                  ),                  
-                ]
-              ),
               
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10,),
-                  const Icon(Icons.devices_rounded),
-                  SizedBox(width: 30,),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                      padding: padding,
-                      onSurface: FlexColor.blueDarkPrimaryVariant),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WiFiPage()));
-                    },
-                    child: Text(
-                      'Device Setup',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                    ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.bluetooth),
+                label: Text('BlueTooth Connect',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Colors.white)),
+
+                onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WiFiPage()));
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder,
+                  primary: Colors.lightBlue[600],
                   ),
-                ]
+              ),
+                   
+
+              OutlinedButton.icon(
+                icon: const Icon(Icons.wifi),
+                label: Text('WiFi Setup',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!),   
+                style: OutlinedButton.styleFrom(
+                    padding: buttonPadding,
+                    shape: buttonRoundBorder,
+                    primary: FlexColor.deepBlueDarkPrimaryVariant
+                    ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WiFiPage()));
+                },
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-
-                children: [
-                  SizedBox(width: 10,),
-                  const Icon(Icons.wifi),
-                  SizedBox(width: 30,),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 99.5),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WiFiPage()));
-                    },
-                    child: Text('WiFi Setup',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.white)),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.auto_graph_sharp),
+                label: Text('ThingSpeak Setup',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!),
+                style: OutlinedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder,
+                  primary: FlexColor.deepBlueDarkPrimaryVariant
                   ),
-
-                ]
-              ),
-
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 43.5),
-                    backgroundColor: Colors.blue[600]),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ThingSpeakPage()));
                 },
-                child: Text('ThingSpeak Setup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 48.0),
-                    backgroundColor: Colors.blue[600]),
+
+              OutlinedButton.icon(
+                icon: const Icon(Icons.devices_rounded),
+                label: Text('Device Setup',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!),
+                style: OutlinedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder,
+                  primary: FlexColor.deepBlueDarkPrimaryVariant),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WiFiPage()));
+                },
+              ),
+
+              ElevatedButton.icon(
+                icon: const Icon(Icons.done_outline_rounded),
+                label: Text('Begin Sampling',
+                  style: Theme.of(context)
+                    .textTheme
+                    .headline6!),
+                style: ElevatedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ThingSpeakPage()));
                 },
-                child: Text('Begin Sampling',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
               ),
             ],
           ),
@@ -196,7 +171,6 @@ class _WiFiPageState extends State<WiFiPage> {
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
-                          .copyWith(color: Colors.black),
                     )),
                 const TextField(
                   decoration: InputDecoration(
@@ -210,17 +184,16 @@ class _WiFiPageState extends State<WiFiPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Password'),
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 132.0),
-                        backgroundColor: Colors.blue[600]),
+                            vertical: 16.0, horizontal: 100.0),),
                     onPressed: () {},
                     child: Text('Continue',
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
-                            .copyWith(color: Colors.white))),
+                            .headline4!)
+                ),
               ],
             ),
           ),
