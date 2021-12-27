@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
         scheme: FlexScheme.deepBlue),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.deepBlue),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.deepBlue),
       home: const HomePage(),
     );
   }
@@ -209,6 +210,8 @@ class ThingSpeakPage extends StatefulWidget {
 }
 
 class _ThingSpeakState extends State<ThingSpeakPage> {
+
+  RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,17 +234,17 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                           .textTheme
                           .headline6!
                     )),
-                TextButton(
-                  style: TextButton.styleFrom(
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.outbond),
+                  style: ElevatedButton.styleFrom(
+                      shape: buttonRoundBorder,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 100.0),
-                      backgroundColor: Colors.blue[600]),
+                          vertical: 16.0, horizontal: 100.0)),
                   onPressed: () {},
-                  child: Text('New Channel',
+                  label: Text('New Channel',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white)),
+                          .headline5!),
                 ),
                 const TextField(
                   decoration: InputDecoration(
@@ -259,16 +262,19 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const Icon(Icons.biotech),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(8.0),
-                        child: const Text('CO2 Field'),
+                        child: const Text('CO2 Field')
                       ),
+                      const Icon(Icons.thermostat),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(8.0),
                         child: const Text('Temperature Field'),
                       ),
+                      const Icon(Icons.water),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(8.0),
@@ -320,17 +326,17 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                     ),
                   ],
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: buttonRoundBorder,
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 100.0),
-                        backgroundColor: Colors.blue[600]),
+                            vertical: 16.0, horizontal: 100.0)),
                     onPressed: () {},
                     child: Text('Continue',
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
-                            .copyWith(color: Colors.white)))
+                            .headline4!)
+                )
               ],
             ),
           ),
