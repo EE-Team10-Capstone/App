@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:app_settings/app_settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,12 +52,8 @@ class HomePage extends StatelessWidget {
                       .headline6!
                       .copyWith(color: Colors.white)),
 
-                onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WiFiPage()));
-                },
+                onPressed: AppSettings.openBluetoothSettings,
+                
                 style: ElevatedButton.styleFrom(
                   padding: buttonPadding,
                   shape: buttonRoundBorder,
