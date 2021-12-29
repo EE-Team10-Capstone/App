@@ -103,21 +103,23 @@ class HomePage extends StatelessWidget {
                           builder: (context) => const ThingSpeakPage()));
                 },
               ),
-              OutlinedButton.icon(
-                icon: const Icon(Icons.devices_rounded),
-                label: Text('Device Setup',
-                    style: Theme.of(context).textTheme.headline6!),
-                style: OutlinedButton.styleFrom(
-                    padding: buttonPadding,
-                    shape: buttonRoundBorder,
-                    primary: FlexColor.deepBlueDarkPrimaryVariant),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-              ),
+
+              // OutlinedButton.icon(
+              //   icon: const Icon(Icons.devices_rounded),
+              //   label: Text('Device Setup',
+              //       style: Theme.of(context).textTheme.headline6!),
+              //   style: OutlinedButton.styleFrom(
+              //       padding: buttonPadding,
+              //       shape: buttonRoundBorder,
+              //       primary: FlexColor.deepBlueDarkPrimaryVariant),
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const WiFiPage()));
+              //   },
+              // ),
+              
               ElevatedButton.icon(
                 icon: const Icon(Icons.done_outline_rounded),
                 label: Text('Begin Sampling',
