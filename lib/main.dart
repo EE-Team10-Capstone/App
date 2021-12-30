@@ -1,34 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:app_settings/app_settings.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+
+  // License for Montserrat font
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: FlexThemeData.light(
+          scheme:    FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.light).textTheme)),
+      darkTheme: FlexThemeData.dark(
+          scheme:    FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.dark).textTheme)),
       home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)));
+    EdgeInsets buttonPadding =
+        const EdgeInsets.symmetric(vertical: 16.0, horizontal: 60);
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text('UA-IoTENSR', style: TextStyle(fontSize: 32.0)),
-          toolbarHeight: 96.0,
+          title:
+              Text('UA-IoTENSR', style: GoogleFonts.montserrat(fontSize: 36.0)),
+          toolbarHeight: 80,
           centerTitle: true,
         ),
         body: Center(
@@ -36,91 +59,82 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 32.0),
-                    backgroundColor: Colors.blue[600],
-                    alignment: Alignment.center),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.bluetooth),
+                label: Text('BlueTooth Connect',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Colors.white)),
+                onPressed: AppSettings.openBluetoothSettings,
+                style: ElevatedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder,
+                  primary: Colors.lightBlue[600],
+                ),
+              ),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.wifi),
+                label: Text('WiFi Setup',
+                    style: Theme.of(context).textTheme.headline6!),
+                style: OutlinedButton.styleFrom(
+                    padding: buttonPadding,
+                    shape: buttonRoundBorder,
+                    primary: FlexColor.deepBlueDarkPrimaryVariant),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const WiFiPage()));
                 },
-                child: Text('BlueTooth Connect ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 82.0),
-                    backgroundColor: Colors.blue[600]),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-                child: Text('Device Setup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 99.5),
-                    backgroundColor: Colors.blue[600]),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WiFiPage()));
-                },
-                child: Text('WiFi Setup',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 43.5),
-                    backgroundColor: Colors.blue[600]),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.auto_graph_sharp),
+                label: Text('ThingSpeak Setup',
+                    style: Theme.of(context).textTheme.headline6!),
+                style: OutlinedButton.styleFrom(
+                    padding: buttonPadding,
+                    shape: buttonRoundBorder,
+                    primary: FlexColor.deepBlueDarkPrimaryVariant),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ThingSpeakPage()));
                 },
-                child: Text('ThingSpeak Setup',
+              ),
+
+              // OutlinedButton.icon(
+              //   icon: const Icon(Icons.devices_rounded),
+              //   label: Text('Device Setup',
+              //       style: Theme.of(context).textTheme.headline6!),
+              //   style: OutlinedButton.styleFrom(
+              //       padding: buttonPadding,
+              //       shape: buttonRoundBorder,
+              //       primary: FlexColor.deepBlueDarkPrimaryVariant),
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const WiFiPage()));
+              //   },
+              // ),
+              
+              ElevatedButton.icon(
+                icon: const Icon(Icons.done_outline_rounded),
+                label: Text('Begin Sampling',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headline6!
                         .copyWith(color: Colors.white)),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 48.0),
-                    backgroundColor: Colors.blue[600]),
+                style: ElevatedButton.styleFrom(
+                    padding: buttonPadding, shape: buttonRoundBorder),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ThingSpeakPage()));
                 },
-                child: Text('Begin Sampling',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
               ),
             ],
           ),
@@ -152,13 +166,11 @@ class _WiFiPageState extends State<WiFiPage> {
                     padding: const EdgeInsets.all(8.0),
                     margin: const EdgeInsets.symmetric(vertical: 15.0),
                     alignment: Alignment.center,
-                    child: Text(
-                      'Please insert your WiFi Credentials below',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: Colors.black),
-                    )),
+                    child: Text('Please insert your WiFi Credentials below',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 24,
+                      ))
+                ),
                 const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'SSID'),
@@ -171,17 +183,14 @@ class _WiFiPageState extends State<WiFiPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Password'),
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 132.0),
-                        backgroundColor: Colors.blue[600]),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 100.0),
+                    ),
                     onPressed: () {},
                     child: Text('Continue',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4!
-                            .copyWith(color: Colors.white))),
+                        style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white))),
               ],
             ),
           ),
@@ -197,6 +206,8 @@ class ThingSpeakPage extends StatefulWidget {
 }
 
 class _ThingSpeakState extends State<ThingSpeakPage> {
+  RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,23 +225,17 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     alignment: Alignment.center,
                     child: Text(
-                      'Please insert your ThingSpeakPage Channel Credentials below',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: Colors.black),
-                    )),
-                TextButton(
-                  style: TextButton.styleFrom(
+                        'Please insert your ThingSpeakPage Channel Credentials below',
+                        style: Theme.of(context).textTheme.headline6!)),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.outbond),
+                  style: ElevatedButton.styleFrom(
+                      shape: buttonRoundBorder,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 100.0),
-                      backgroundColor: Colors.blue[600]),
+                          vertical: 16.0, horizontal: 100.0)),
                   onPressed: () {},
-                  child: Text('New Channel',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white)),
+                  label: Text('New Channel',
+                      style: Theme.of(context).textTheme.headline5!),
                 ),
                 const TextField(
                   decoration: InputDecoration(
@@ -245,23 +250,25 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                       border: OutlineInputBorder(), labelText: 'Channel ID'),
                 ),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const Icon(Icons.biotech),
+                      Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(5.0),
+                          child: const Text('CO2')),
+                      const Icon(Icons.thermostat),
                       Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text('CO2 Field'),
+                        padding: const EdgeInsets.all(5.0),
+                        child: const Text('Temperature'),
                       ),
+                      const Icon(Icons.water),
                       Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text('Temperature Field'),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text('Humidity Field'),
+                        padding: const EdgeInsets.all(5.0),
+                        child: const Text('Humidity'),
                       ),
                     ]),
                 Row(
@@ -309,17 +316,14 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                     ),
                   ],
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: buttonRoundBorder,
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 132.0),
-                        backgroundColor: Colors.blue[600]),
+                            vertical: 16.0, horizontal: 100.0)),
                     onPressed: () {},
                     child: Text('Continue',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4!
-                            .copyWith(color: Colors.white)))
+                        style: Theme.of(context).textTheme.headline4!))
               ],
             ),
           ),
