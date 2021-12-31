@@ -156,10 +156,15 @@ class _SetupMenuState extends State<SetupMenu> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+              title: const Text("Setup Menu"),
               bottom: const TabBar(tabs: [
-            Tab(text: "WiFi Menu"),
-            Tab(text: "ThingSpeak Menu")
-          ])),
+                Tab(icon: Icon(Icons.wifi), text: "WiFi Menu"),
+                Tab(icon: Icon(Icons.auto_graph), text: "ThingSpeak Menu")
+              ])),
+          body: const TabBarView(children: <Widget>[
+            WiFiPage(),
+            ThingSpeakPage(),
+          ]),
         ));
   }
 }
@@ -174,49 +179,46 @@ class WiFiPage extends StatefulWidget {
 class _WiFiPageState extends State<WiFiPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('WiFi Setup')),
-      body: Center(
-        child: Container(
-          alignment: Alignment.topCenter,
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  padding: const EdgeInsets.all(8.0),
-                  margin: const EdgeInsets.symmetric(vertical: 15.0),
-                  alignment: Alignment.center,
-                  child: Text('Please insert your WiFi Credentials below',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 24,
-                      ))),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'SSID'),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Username'),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Password'),
-              ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 100.0),
-                  ),
-                  onPressed: () {},
-                  child: Text('Continue',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white))),
-            ],
-          ),
+    return Center(
+      child: Container(
+        alignment: Alignment.topCenter,
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.symmetric(vertical: 15.0),
+                alignment: Alignment.center,
+                child: Text('Please insert your WiFi Credentials below',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 24,
+                    ))),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'SSID'),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Username'),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Password'),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 100.0),
+                ),
+                onPressed: () {},
+                child: Text('Continue',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white))),
+          ],
         ),
       ),
     );
@@ -235,124 +237,121 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
       borderRadius: BorderRadius.all(Radius.circular(20)));
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(title: const Text('ThingSpeakPage Setup')),
-        body: Center(
-          child: Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
+    return Center(
+      child: Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                alignment: Alignment.center,
+                child: Text(
+                    'Please insert your ThingSpeakPage Channel Credentials below',
+                    style: Theme.of(context).textTheme.headline6!)),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.outbond),
+              style: ElevatedButton.styleFrom(
+                  shape: buttonRoundBorder,
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 100.0)),
+              onPressed: () {},
+              label: Text('New Channel',
+                  style: Theme.of(context).textTheme.headline5!),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Write API Key'),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Read API Key'),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Channel ID'),
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.biotech),
+                  Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(5.0),
+                      child: const Text('CO2')),
+                  const Icon(Icons.thermostat),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(5.0),
+                    child: const Text('Temperature'),
+                  ),
+                  const Icon(Icons.water),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(5.0),
+                    child: const Text('Humidity'),
+                  ),
+                ]),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                    padding: const EdgeInsets.all(8.0),
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: DropdownButton<String>(
                     alignment: Alignment.center,
-                    child: Text(
-                        'Please insert your ThingSpeakPage Channel Credentials below',
-                        style: Theme.of(context).textTheme.headline6!)),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.outbond),
-                  style: ElevatedButton.styleFrom(
-                      shape: buttonRoundBorder,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 100.0)),
-                  onPressed: () {},
-                  label: Text('New Channel',
-                      style: Theme.of(context).textTheme.headline5!),
+                    value: '1',
+                    items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                          value: value, child: Text(value));
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Write API Key'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: DropdownButton<String>(
+                    alignment: Alignment.center,
+                    value: '2',
+                    items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                          value: value, child: Text(value));
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Read API Key'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: DropdownButton<String>(
+                    alignment: Alignment.center,
+                    value: '3',
+                    items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                          value: value, child: Text(value));
+                    }).toList(),
+                    onChanged: (_) {},
+                  ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Channel ID'),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.biotech),
-                      Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(5.0),
-                          child: const Text('CO2')),
-                      const Icon(Icons.thermostat),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(5.0),
-                        child: const Text('Temperature'),
-                      ),
-                      const Icon(Icons.water),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(5.0),
-                        child: const Text('Humidity'),
-                      ),
-                    ]),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                      child: DropdownButton<String>(
-                        alignment: Alignment.center,
-                        value: '1',
-                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value, child: Text(value));
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                      child: DropdownButton<String>(
-                        alignment: Alignment.center,
-                        value: '2',
-                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value, child: Text(value));
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                      child: DropdownButton<String>(
-                        alignment: Alignment.center,
-                        value: '3',
-                        items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value, child: Text(value));
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: buttonRoundBorder,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 100.0)),
-                    onPressed: () {},
-                    child: Text('Continue',
-                        style: Theme.of(context).textTheme.headline4!))
               ],
             ),
-          ),
-        ));
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: buttonRoundBorder,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 100.0)),
+                onPressed: () {},
+                child: Text('Continue',
+                    style: Theme.of(context).textTheme.headline4!))
+          ],
+        ),
+      ),
+    );
   }
 }
