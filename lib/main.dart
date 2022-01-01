@@ -142,14 +142,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class SetupMenu extends StatefulWidget {
+class SetupMenu extends StatelessWidget {
   const SetupMenu({Key? key}) : super(key: key);
 
-  @override
-  _SetupMenuState createState() => _SetupMenuState();
-}
-
-class _SetupMenuState extends State<SetupMenu> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -213,7 +208,7 @@ class _WiFiPageState extends State<WiFiPage> {
                       vertical: 16.0, horizontal: 100.0),
                 ),
                 onPressed: () {},
-                child: Text('Continue',
+                child: Text('Save',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -347,8 +342,8 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 100.0)),
                 onPressed: () {},
-                child: Text('Continue',
-                    style: Theme.of(context).textTheme.headline4!))
+                child:
+                    Text('Save', style: Theme.of(context).textTheme.headline4!))
           ],
         ),
       ),
