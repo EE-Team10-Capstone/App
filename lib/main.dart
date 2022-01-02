@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 _launchURL() async {
-  const String url = 'https://thingspeak.com';
+  const String url = 'https://thingspeak.com/login?skipSSOCheck=true';
   if (await canLaunch(url)) {
-    await launch(url);
+    await launch(url, forceWebView: true, enableJavaScript: true);
   } else {
     throw 'Could not launch $url';
   }
