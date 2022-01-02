@@ -5,9 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+_launchURL() async {
+  const String url = 'https://thingspeak.com/login?skipSSOCheck=true';
+  if (await canLaunch(url)) {
+    await launch(url, forceWebView: true, enableJavaScript: true);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 void main() {
-
   // License for Montserrat font
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -25,11 +34,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
-          scheme:    FlexScheme.deepBlue,
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.light).textTheme)),
+          scheme: FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(
+              ThemeData(brightness: Brightness.light).textTheme)),
       darkTheme: FlexThemeData.dark(
-          scheme:    FlexScheme.deepBlue,
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.dark).textTheme)),
+          scheme: FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(
+              ThemeData(brightness: Brightness.dark).textTheme)),
       home: const HomePage(),
     );
   }
@@ -119,7 +130,7 @@ class HomePage extends StatelessWidget {
               //             builder: (context) => const WiFiPage()));
               //   },
               // ),
-              
+
               ElevatedButton.icon(
                 icon: const Icon(Icons.done_outline_rounded),
                 label: Text('Begin Sampling',
@@ -167,10 +178,9 @@ class _WiFiPageState extends State<WiFiPage> {
                     margin: const EdgeInsets.symmetric(vertical: 15.0),
                     alignment: Alignment.center,
                     child: Text('Please insert your WiFi Credentials below',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 24,
-                      ))
-                ),
+                        style: GoogleFonts.montserrat(
+                          fontSize: 24,
+                        ))),
                 const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'SSID'),
@@ -190,7 +200,10 @@ class _WiFiPageState extends State<WiFiPage> {
                     ),
                     onPressed: () {},
                     child: Text('Continue',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white))),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: Colors.white))),
               ],
             ),
           ),
@@ -208,6 +221,7 @@ class ThingSpeakPage extends StatefulWidget {
 class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,7 +247,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                       shape: buttonRoundBorder,
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 100.0)),
-                  onPressed: () {},
+                  onPressed: _launchURL,
                   label: Text('New Channel',
                       style: Theme.of(context).textTheme.headline5!),
                 ),

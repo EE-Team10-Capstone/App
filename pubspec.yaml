@@ -39,6 +39,7 @@ dependencies:
   flex_color_scheme: ^4.1.1
   app_settings: ^4.1.1
   google_fonts: ^2.1.1
+  url_launcher: ^6.0.17
 
 dev_dependencies:
   flutter_test:
