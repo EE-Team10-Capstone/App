@@ -6,6 +6,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 void main() {
   // License for Montserrat font
   LicenseRegistry.addLicense(() async* {
