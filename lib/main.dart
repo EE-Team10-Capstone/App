@@ -150,6 +150,7 @@ class SetupMenu extends StatelessWidget {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
               title: const Text("Setup Menu"),
               bottom: const TabBar(tabs: [
@@ -184,7 +185,6 @@ class _WiFiPageState extends State<WiFiPage> {
           children: [
             Container(
                 padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.symmetric(vertical: 15.0),
                 alignment: Alignment.center,
                 child: Text('Please insert your WiFi Credentials below',
                     style: GoogleFonts.montserrat(
