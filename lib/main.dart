@@ -7,7 +7,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-
   // License for Montserrat font
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -25,11 +24,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
-          scheme:    FlexScheme.deepBlue,
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.light).textTheme)),
+          scheme: FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(
+              ThemeData(brightness: Brightness.light).textTheme)),
       darkTheme: FlexThemeData.dark(
-          scheme:    FlexScheme.deepBlue,
-          textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.dark).textTheme)),
+          scheme: FlexScheme.deepBlue,
+          textTheme: GoogleFonts.montserratTextTheme(
+              ThemeData(brightness: Brightness.dark).textTheme)),
       home: const HomePage(),
     );
   }
@@ -119,7 +120,7 @@ class HomePage extends StatelessWidget {
               //             builder: (context) => const WiFiPage()));
               //   },
               // ),
-              
+
               ElevatedButton.icon(
                 icon: const Icon(Icons.done_outline_rounded),
                 label: Text('Begin Sampling',
@@ -167,10 +168,9 @@ class _WiFiPageState extends State<WiFiPage> {
                     margin: const EdgeInsets.symmetric(vertical: 15.0),
                     alignment: Alignment.center,
                     child: Text('Please insert your WiFi Credentials below',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 24,
-                      ))
-                ),
+                        style: GoogleFonts.montserrat(
+                          fontSize: 24,
+                        ))),
                 const TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'SSID'),
@@ -190,7 +190,10 @@ class _WiFiPageState extends State<WiFiPage> {
                     ),
                     onPressed: () {},
                     child: Text('Continue',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white))),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: Colors.white))),
               ],
             ),
           ),
