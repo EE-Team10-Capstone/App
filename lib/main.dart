@@ -5,7 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+_launchURL() async {
+  const String url = 'https://thingspeak.com';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 void main() {
   // License for Montserrat font
@@ -212,6 +221,7 @@ class ThingSpeakPage extends StatefulWidget {
 class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,7 +247,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                       shape: buttonRoundBorder,
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 100.0)),
-                  onPressed: () {},
+                  onPressed: _launchURL,
                   label: Text('New Channel',
                       style: Theme.of(context).textTheme.headline5!),
                 ),
