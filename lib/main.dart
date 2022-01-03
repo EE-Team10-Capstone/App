@@ -173,6 +173,9 @@ class WiFiPage extends StatefulWidget {
 }
 
 class _WiFiPageState extends State<WiFiPage> {
+  RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)));
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -204,15 +207,12 @@ class _WiFiPageState extends State<WiFiPage> {
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 100.0),
-                ),
+                    shape: buttonRoundBorder,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 100.0)),
                 onPressed: () {},
-                child: Text('Save',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white))),
+                child:
+                    Text('Save', style: Theme.of(context).textTheme.headline4!))
           ],
         ),
       ),
