@@ -142,30 +142,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// class SetupMenu extends StatelessWidget {
-//   const SetupMenu({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // return DefaultTabController(
-//     //     length: 2,
-//     //     child: Scaffold(
-//     //       resizeToAvoidBottomInset: false,
-//     //       appBar: AppBar(
-//     //           title: const Text("Setup Menu"),
-//     //           bottom: const TabBar(tabs: [
-//     //             Tab(icon: Icon(Icons.wifi), text: "WiFi Menu"),
-//     //             Tab(icon: Icon(Icons.auto_graph), text: "ThingSpeak Menu")
-//     //           ])),
-//     //       body: const TabBarView(children: <Widget>[
-//     //         WiFiPage(),
-//     //         ThingSpeakPage(),
-//     //       ]),
-//     //     ));
-//     return
-//   }
-// }
-
 class SetupMenu extends StatefulWidget {
   const SetupMenu({Key? key}) : super(key: key);
 
