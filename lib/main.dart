@@ -5,6 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
+_launchURL() async {
+  const String url = 'https://thingspeak.com/login?skipSSOCheck=true';
+  if (await canLaunch(url)) {
+    await launch(url, forceWebView: true, enableJavaScript: true);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 void main() {
   // License for Montserrat font
@@ -102,6 +113,7 @@ class HomePage extends StatelessWidget {
             //             builder: (context) => const ThingSpeakPage()));
             //   },
             // ),
+
 
             // OutlinedButton.icon(
             //   icon: const Icon(Icons.devices_rounded),
@@ -279,6 +291,7 @@ class ThingSpeakPage extends StatefulWidget {
 class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
+
   @override
   Widget build(BuildContext context) {
     return Center(
