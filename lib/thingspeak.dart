@@ -23,6 +23,11 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
 
+  //Setting default channel values for dropdown menus.
+  String channelCO2 = '1';
+  String channelTemp = '2';
+  String channelRH = '3';
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -92,39 +97,51 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 48.0),
                   child: DropdownButton<String>(
                     alignment: Alignment.center,
-                    value: '1',
+                    value: channelCO2,
                     items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
                         .map((String value) {
                       return DropdownMenuItem<String>(
                           value: value, child: Text(value));
                     }).toList(),
-                    onChanged: (_) {},
+                    onChanged: (String? newchannelCO2) {
+                      setState(() {
+                        channelCO2 = newchannelCO2!;
+                      });
+                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48.0),
                   child: DropdownButton<String>(
                     alignment: Alignment.center,
-                    value: '2',
+                    value: channelTemp,
                     items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
                         .map((String value) {
                       return DropdownMenuItem<String>(
                           value: value, child: Text(value));
                     }).toList(),
-                    onChanged: (_) {},
+                    onChanged: (String? newchannelTemp) {
+                      setState(() {
+                        channelTemp = newchannelTemp!;
+                      });
+                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48.0),
                   child: DropdownButton<String>(
                     alignment: Alignment.center,
-                    value: '3',
+                    value: channelRH,
                     items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
                         .map((String value) {
                       return DropdownMenuItem<String>(
                           value: value, child: Text(value));
                     }).toList(),
-                    onChanged: (_) {},
+                    onChanged: (String? newchannelRH) {
+                      setState(() {
+                        channelRH = newchannelRH!;
+                      });
+                    },
                   ),
                 ),
               ],
