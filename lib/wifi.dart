@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WiFiPage extends StatefulWidget {
@@ -13,6 +13,29 @@ class WiFiPage extends StatefulWidget {
 class _WiFiPageState extends State<WiFiPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
+
+  late TextEditingController _SSIDcontroller;
+  late TextEditingController _USERIDcontroller;
+  late TextEditingController _PASSWDcontroller;
+
+  //Initializing string values for text values
+  String ssid = '';
+  String userid = '';
+  String password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _SSIDcontroller = TextEditingController();
+    _USERIDcontroller = TextEditingController();
+    _PASSWDcontroller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _SSIDcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +56,9 @@ class _WiFiPageState extends State<WiFiPage> {
                     ))),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: const TextField(
-                decoration: InputDecoration(
+              child: TextField(
+                controller: _SSIDcontroller,
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'SSID'),
               ),
             ),
@@ -48,6 +72,7 @@ class _WiFiPageState extends State<WiFiPage> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 40.0),
               child: const TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Password'),
               ),

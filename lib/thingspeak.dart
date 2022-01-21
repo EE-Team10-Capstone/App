@@ -23,10 +23,32 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
 
+  //Creating TextEditingControllers
+  late TextEditingController _WRAPIcontroller;
+  late TextEditingController _RDAPIcontroller;
+  late TextEditingController _CHANIDcontroller;
+
+  //Initializing string values for text values
+  String writeapikey = '';
+  String readapikey = '';
+  String channelid = '';
+
   //Setting default channel values for dropdown menus.
   String channelCO2 = '1';
   String channelTemp = '2';
   String channelRH = '3';
+
+  void initState() {
+    super.initState();
+    _WRAPIcontroller = TextEditingController();
+    _RDAPIcontroller = TextEditingController();
+    _CHANIDcontroller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +77,22 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
               label: Text('New Channel',
                   style: Theme.of(context).textTheme.headline5!),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _WRAPIcontroller,
+              maxLength: 16,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Write API Key'),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _RDAPIcontroller,
+              maxLength: 16,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Read API Key'),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _CHANIDcontroller,
+              maxLength: 7,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Channel ID'),
             ),
             Row(
