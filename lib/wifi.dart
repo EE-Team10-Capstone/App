@@ -25,6 +25,11 @@ class _WiFiPageState extends State<WiFiPage> {
   late TextEditingController _USERIDcontroller;
   late TextEditingController _PASSWDcontroller;
 
+  final String _wifiService = "57694669-2050-726F-7669-73696F6E0000";
+  final String _ssidCharacteristic = "57694669-2050-726F-7669-73696F6E0001";
+  final String _useridCharacteristic = "57694669-2050-726F-7669-73696F6E0002";
+  final String _passwdCharacteristic = "57694669-2050-726F-7669-73696F6E0003";
+
   @override
   void initState() {
     super.initState();

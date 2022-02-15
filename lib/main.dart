@@ -1,10 +1,9 @@
-import 'package:app/bluetooth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:app_settings/app_settings.dart';
+// import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
