@@ -10,8 +10,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 
 import 'thingspeak.dart';
 import 'wifi.dart';
-
-FlutterBlue fb = FlutterBlue.instance;
+import 'bluetooth.dart';
 
 void main() {
   // License for Montserrat font
@@ -67,20 +66,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ElevatedButton.icon(
-              icon: const Icon(Icons.bluetooth),
-              label: Text('BlueTooth Connect',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.white)),
-              onPressed: () => _scanBLE(),
-              style: ElevatedButton.styleFrom(
-                padding: buttonPadding,
-                shape: buttonRoundBorder,
-                primary: Colors.lightBlue[600],
-              ),
-            ),
+            BLEConn(),
             OutlinedButton.icon(
               icon: const Icon(Icons.settings),
               label: Text('Setup Menu',
@@ -114,28 +100,6 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _scanBLE() {
-    fb.scanResults.listen((List<ScanResult> results) {
-      for (ScanResult result in results) {
-        if (result.device.name == "UA-IOTENSR") {
-          _connectBLE(result.device);
-        }
-      }
-    });
-
-    fb.startScan();
-  }
-
-  void _connectBLE(BluetoothDevice device) async {
-    fb.stopScan();
-
-    try {
-      await device.connect();
-    } catch (error) {
-      throw ("Device already connected");
-    }
   }
 }
 

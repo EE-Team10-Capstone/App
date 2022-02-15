@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:regexpattern/regexpattern.dart';
+
+import 'bluetooth.dart';
 
 class WiFiPage extends StatefulWidget {
   const WiFiPage({Key? key}) : super(key: key);
@@ -37,6 +40,8 @@ class _WiFiPageState extends State<WiFiPage> {
     _PASSWDcontroller.dispose();
     super.dispose();
   }
+
+  void _wifiWrite() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +99,22 @@ class _WiFiPageState extends State<WiFiPage> {
                     shape: buttonRoundBorder,
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 100.0)),
-                onPressed: () {
+                onPressed: () async {
                   if (_WifiKey.currentState!.validate()) {
-                    // Process data.
+                    for (BluetoothService service in services) {
+                      if (service.uuid == wifiUUID) {
+                        for (BluetoothCharacteristic characteristic
+                            in service.characteristics) {
+                          List<int> value = await characteristic.read();
+                          print(value);
+                          // switch (characteristic) {
+                          //   case :
+                          //     break;
+                          //   default:
+                          // }
+                        }
+                      }
+                    }
                   }
                 },
                 child: Text('Save',
