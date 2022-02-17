@@ -6,6 +6,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 // import 'package:app_settings/app_settings.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:provider/provider.dart';
 
 import 'thingspeak.dart';
 import 'wifi.dart';
@@ -65,7 +66,19 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            BLEConn(),
+            ElevatedButton.icon(
+                icon: const Icon(Icons.bluetooth),
+                label: Text('BlueTooth Connect',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Colors.white)),
+                onPressed: Provider.of<BLEConnect>(context).scanBLE(),
+                style: ElevatedButton.styleFrom(
+                  padding: buttonPadding,
+                  shape: buttonRoundBorder,
+                  primary: Colors.lightBlue[600],
+                )),
             OutlinedButton.icon(
               icon: const Icon(Icons.settings),
               label: Text('Setup Menu',

@@ -21,28 +21,23 @@ class _WiFiPageState extends State<WiFiPage> {
 
   final _WifiKey = GlobalKey<FormState>();
 
-  late TextEditingController _SSIDcontroller;
-  late TextEditingController _USERIDcontroller;
-  late TextEditingController _PASSWDcontroller;
-
-  final String _wifiService = "57694669-2050-726F-7669-73696F6E0000";
-  final String _ssidCharacteristic = "57694669-2050-726F-7669-73696F6E0001";
-  final String _useridCharacteristic = "57694669-2050-726F-7669-73696F6E0002";
-  final String _passwdCharacteristic = "57694669-2050-726F-7669-73696F6E0003";
+  late TextEditingController _ssidController;
+  late TextEditingController _useridController;
+  late TextEditingController _passwdController;
 
   @override
   void initState() {
     super.initState();
-    _SSIDcontroller = TextEditingController();
-    _USERIDcontroller = TextEditingController();
-    _PASSWDcontroller = TextEditingController();
+    _ssidController = TextEditingController();
+    _useridController = TextEditingController();
+    _passwdController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _SSIDcontroller.dispose();
-    _USERIDcontroller.dispose();
-    _PASSWDcontroller.dispose();
+    _ssidController.dispose();
+    _useridController.dispose();
+    _passwdController.dispose();
     super.dispose();
   }
 
@@ -64,7 +59,7 @@ class _WiFiPageState extends State<WiFiPage> {
                     fontSize: 24,
                   ))),
           TextFormField(
-            controller: _SSIDcontroller,
+            controller: _ssidController,
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), labelText: 'SSID'),
             validator: (text) {
@@ -75,7 +70,7 @@ class _WiFiPageState extends State<WiFiPage> {
             },
           ),
           TextFormField(
-              controller: _USERIDcontroller,
+              controller: _useridController,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Username'),
@@ -86,7 +81,7 @@ class _WiFiPageState extends State<WiFiPage> {
                 return null;
               }),
           TextFormField(
-            controller: _PASSWDcontroller,
+            controller: _passwdController,
             obscureText: true,
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), labelText: 'Password'),
@@ -105,22 +100,7 @@ class _WiFiPageState extends State<WiFiPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 100.0)),
                 onPressed: () async {
-                  if (_WifiKey.currentState!.validate()) {
-                    for (BluetoothService service in services) {
-                      if (service.uuid == wifiUUID) {
-                        for (BluetoothCharacteristic characteristic
-                            in service.characteristics) {
-                          List<int> value = await characteristic.read();
-                          print(value);
-                          // switch (characteristic) {
-                          //   case :
-                          //     break;
-                          //   default:
-                          // }
-                        }
-                      }
-                    }
-                  }
+                  if (_WifiKey.currentState!.validate()) {}
                 },
                 child: Text('Save',
                     style: Theme.of(context).textTheme.headline4!)),
