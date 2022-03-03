@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 
@@ -56,11 +57,15 @@ class BLE extends ChangeNotifier {
       if (service.uuid.toString() == wifiUUID) {
         for (BluetoothCharacteristic characteristic
             in service.characteristics) {
-          //switch (characteristic.uuid) {
-          //case ssidUUID:
-          //  await characteristic.write(ssid);
-          //  break;
-          //}
+          if (characteristic.uuid.toString() == ssidUUID) {
+            characteristic.write(utf8.encode(ssid));
+          }
+          if (characteristic.uuid.toString() == usidUUID) {
+            characteristic.write(utf8.encode(userid));
+          }
+          if (characteristic.uuid.toString() == pswdUUID) {
+            characteristic.write(utf8.encode(passwd));
+          }
         }
       }
     }

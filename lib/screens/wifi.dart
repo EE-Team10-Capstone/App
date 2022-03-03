@@ -39,8 +39,6 @@ class _WiFiPageState extends State<WiFiPage> {
     super.dispose();
   }
 
-  void _wifiWrite() async {}
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -98,7 +96,10 @@ class _WiFiPageState extends State<WiFiPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 100.0)),
                 onPressed: () async {
-                  if (_WifiKey.currentState!.validate()) {}
+                  if (_WifiKey.currentState!.validate()) {
+                    context.read<BLE>().wifiWrite(_ssidController.text,
+                        _useridController.text, _passwdController.text);
+                  }
                 },
                 child: Text('Save',
                     style: Theme.of(context).textTheme.headline4!)),
