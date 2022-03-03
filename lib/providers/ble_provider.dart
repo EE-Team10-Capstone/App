@@ -18,10 +18,12 @@ class BLE extends ChangeNotifier {
   FlutterBlue fb = FlutterBlue.instance;
   late List<BluetoothService> services;
 
+  late String serviceuuid;
+
   bool isConnected = false;
 
   // WiFi Characteristics
-  final String wifiUUID = "57694669-2050-726F-7669-73696F6E0000";
+  final String wifiUUID = "57694669-2050-726f-7669-73696f6e0000";
   final String ssidUUID = "57694669-2050-726F-7669-73696F6E0001";
   final String usidUUID = "57694669-2050-726F-7669-73696F6E0002";
   final String pswdUUID = "57694669-2050-726F-7669-73696F6E0003";
@@ -53,18 +55,25 @@ class BLE extends ChangeNotifier {
   }
 
   void wifiWrite(String ssid, String userid, String passwd) async {
+
     for (BluetoothService service in services) {
-      if (service.uuid.toString() == wifiUUID) {
-        for (BluetoothCharacteristic characteristic
-            in service.characteristics) {
-          if (characteristic.uuid.toString() == ssidUUID) {
+
+      if (service.uuid == Guid(wifiUUID)) {
+        
+        for (BluetoothCharacteristic characteristic in service.characteristics) {
+          
+          if (characteristic.uuid == Guid(ssidUUID)) {
             characteristic.write(utf8.encode(ssid));
           }
           if (characteristic.uuid.toString() == usidUUID) {
             characteristic.write(utf8.encode(userid));
           }
-          if (characteristic.uuid.toString() == pswdUUID) {
-            characteristic.write(utf8.encode(passwd));
+          if (characteristic.uuid == Guid(pswdUUID)) {
+            Future.delayed(
+              const Duration(milliseconds: 1000), 
+              () {
+              characteristic.write(utf8.encode(passwd));
+            });
           }
         }
       }
