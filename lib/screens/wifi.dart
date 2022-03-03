@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:regexpattern/regexpattern.dart';
+import 'package:provider/provider.dart';
 
-import 'bluetooth.dart';
+import 'package:app/providers/ble_provider.dart';
 
 class WiFiPage extends StatefulWidget {
   const WiFiPage({Key? key}) : super(key: key);

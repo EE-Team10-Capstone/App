@@ -13,17 +13,17 @@ import 'package:provider/provider.dart';
 
 // Bluetooth Connect Button for home page
 
-class BLEConnect extends ChangeNotifier {
+class BLE extends ChangeNotifier {
   FlutterBlue fb = FlutterBlue.instance;
   late List<BluetoothService> services;
 
   bool isConnected = false;
 
   // WiFi Characteristics
-  final wifiUUID = "57694669-2050-726F-7669-73696F6E0000";
-  static const ssidUUID = '57694669-2050-726F-7669-73696F6E0001';
-  static const usidUUID = "57694669-2050-726F-7669-73696F6E0002";
-  static const pswdUUID = "57694669-2050-726F-7669-73696F6E0003";
+  final String wifiUUID = "57694669-2050-726F-7669-73696F6E0000";
+  final String ssidUUID = "57694669-2050-726F-7669-73696F6E0001";
+  final String usidUUID = "57694669-2050-726F-7669-73696F6E0002";
+  final String pswdUUID = "57694669-2050-726F-7669-73696F6E0003";
 
 // ThingSpeak Characteristics Insert when completed
 
@@ -53,7 +53,7 @@ class BLEConnect extends ChangeNotifier {
 
   void wifiWrite(String ssid, String userid, String passwd) async {
     for (BluetoothService service in services) {
-      if (service.uuid == wifiUUID) {
+      if (service.uuid.toString() == wifiUUID) {
         for (BluetoothCharacteristic characteristic
             in service.characteristics) {
           //switch (characteristic.uuid) {
