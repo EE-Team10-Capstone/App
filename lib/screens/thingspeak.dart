@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:regexpattern/regexpattern.dart';
 
+import 'package:app/providers/ble_provider.dart';
+
 _launchURL() async {
   const String url = 'https://thingspeak.com/login?skipSSOCheck=true';
   if (await canLaunch(url)) {
@@ -29,13 +31,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
 
   //Creating TextEditingControllers
   late TextEditingController _WRAPIcontroller;
-  late TextEditingController _RDAPIcontroller;
-  late TextEditingController _CHANIDcontroller;
 
   //Initializing string values for text values
   String writeapikey = '';
-  String readapikey = '';
-  String channelid = '';
 
   //Setting default channel values for dropdown menus.
   String channelCO2 = '1';
@@ -44,14 +42,11 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
 
   //Defining ThingSpeak Credential max lengths
   int APImaxlength = 16;
-  int ChannelIDmaxlength = 7;
 
   @override
   void initState() {
     super.initState();
     _WRAPIcontroller = TextEditingController();
-    _RDAPIcontroller = TextEditingController();
-    _CHANIDcontroller = TextEditingController();
   }
 
   @override
@@ -92,33 +87,6 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
             validator: (text) {
               if (text == null || text.length != APImaxlength) {
                 return 'Please Enter the Correct Write API Key';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _RDAPIcontroller,
-            maxLength: APImaxlength,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Read API Key'),
-            validator: (text) {
-              if (text == null || text.length != APImaxlength) {
-                return 'Please Enter the Correct Read API Key';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _CHANIDcontroller,
-            maxLength: ChannelIDmaxlength,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Channel ID'),
-            validator: (text) {
-              if (text == null ||
-                  text.length != ChannelIDmaxlength ||
-                  !text.isNumeric()) {
-                return 'Please Enter the Correct Channel ID';
               }
               return null;
             },
@@ -209,7 +177,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                       vertical: 16.0, horizontal: 100.0)),
               onPressed: () {
                 if (_TSKey.currentState!.validate()) {
-                  // Process data.
+                  context.read<BLE>().tsWrite(_WRAPIcontroller.text);
                 }
               },
               child:
