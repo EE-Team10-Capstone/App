@@ -97,85 +97,85 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
           const SizedBox(
             height: 64,
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(Icons.biotech),
-                Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(5.0),
-                    child: const Text('CO2')),
-                const Icon(Icons.thermostat),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(5.0),
-                  child: const Text('Temperature'),
-                ),
-                const Icon(Icons.water),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(5.0),
-                  child: const Text('Humidity'),
-                ),
-              ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                child: DropdownButton<String>(
-                  alignment: Alignment.center,
-                  value: channelCO2,
-                  items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                      .map((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value, child: Text(value));
-                  }).toList(),
-                  onChanged: (String? newchannelCO2) {
-                    setState(() {
-                      channelCO2 = newchannelCO2!;
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                child: DropdownButton<String>(
-                  alignment: Alignment.center,
-                  value: channelTemp,
-                  items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                      .map((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value, child: Text(value));
-                  }).toList(),
-                  onChanged: (String? newchannelTemp) {
-                    setState(() {
-                      channelTemp = newchannelTemp!;
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                child: DropdownButton<String>(
-                  alignment: Alignment.center,
-                  value: channelRH,
-                  items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
-                      .map((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value, child: Text(value));
-                  }).toList(),
-                  onChanged: (String? newchannelRH) {
-                    setState(() {
-                      channelRH = newchannelRH!;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: [
+          //       const Icon(Icons.biotech),
+          //       Container(
+          //           alignment: Alignment.center,
+          //           padding: const EdgeInsets.all(5.0),
+          //           child: const Text('CO2')),
+          //       const Icon(Icons.thermostat),
+          //       Container(
+          //         alignment: Alignment.center,
+          //         padding: const EdgeInsets.all(5.0),
+          //         child: const Text('Temperature'),
+          //       ),
+          //       const Icon(Icons.water),
+          //       Container(
+          //         alignment: Alignment.center,
+          //         padding: const EdgeInsets.all(5.0),
+          //         child: const Text('Humidity'),
+          //       ),
+          //     ]),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          //       child: DropdownButton<String>(
+          //         alignment: Alignment.center,
+          //         value: channelCO2,
+          //         items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+          //             .map((String value) {
+          //           return DropdownMenuItem<String>(
+          //               value: value, child: Text(value));
+          //         }).toList(),
+          //         onChanged: (String? newchannelCO2) {
+          //           setState(() {
+          //             channelCO2 = newchannelCO2!;
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          //       child: DropdownButton<String>(
+          //         alignment: Alignment.center,
+          //         value: channelTemp,
+          //         items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+          //             .map((String value) {
+          //           return DropdownMenuItem<String>(
+          //               value: value, child: Text(value));
+          //         }).toList(),
+          //         onChanged: (String? newchannelTemp) {
+          //           setState(() {
+          //             channelTemp = newchannelTemp!;
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          //       child: DropdownButton<String>(
+          //         alignment: Alignment.center,
+          //         value: channelRH,
+          //         items: <String>['1', '2', '3', '4', '5', '6', '7', '8']
+          //             .map((String value) {
+          //           return DropdownMenuItem<String>(
+          //               value: value, child: Text(value));
+          //         }).toList(),
+          //         onChanged: (String? newchannelRH) {
+          //           setState(() {
+          //             channelRH = newchannelRH!;
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //  ],
+          //),
           const SizedBox(
             height: 64,
           ),
@@ -188,6 +188,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                 if (_TSKey.currentState!.validate()) {
                   context.read<BLE>().tsWrite(_WRAPIcontroller.text);
                 }
+                _TSKey.currentState!.save();
               },
               child:
                   Text('Save', style: Theme.of(context).textTheme.headline4!)),
