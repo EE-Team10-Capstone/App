@@ -32,7 +32,7 @@ class _SetupMenuState extends State<SetupMenu>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: NestedScrollView(
           controller: _scrollViewController,
           headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {

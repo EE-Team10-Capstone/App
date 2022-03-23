@@ -32,7 +32,7 @@ class BLE extends ChangeNotifier {
   final String tsUUID = "54532050-726F-7669-7369-6F6E00000000";
   final String wrapiUUID = "54532050-726F-7669-7369-6F6E00000001";
 
-  scanBLE() {
+  void scanBLE() {
     fb.scanResults.listen((List<ScanResult> results) {
       for (ScanResult result in results) {
         if (result.device.name == "UA-IOTENSR") {
@@ -46,13 +46,11 @@ class BLE extends ChangeNotifier {
 
   void _connectBLE(BluetoothDevice device) async {
     fb.stopScan();
-
     try {
       await device.connect();
     } catch (error) {
       throw ("Device already connected");
     }
-
     services = await device.discoverServices();
   }
 

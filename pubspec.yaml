@@ -43,6 +43,7 @@ dependencies:
   flutter_blue: ^0.8.0
   regexpattern: ^2.0.1 
   provider: ^6.0.2
+  keyboard_avoider: ^0.1.2
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:regexpattern/regexpattern.dart';
 
 import 'package:app/providers/ble_provider.dart';
 
@@ -59,7 +58,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
     return Form(
       key: _TSKey,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
@@ -67,8 +66,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               alignment: Alignment.center,
               child: Text(
-                  'Please insert your ThingSpeakPage Channel Credentials below',
+                  'Please insert your ThingSpeakPage Write API Key for the channel below',
                   style: Theme.of(context).textTheme.headline6!)),
+          const SizedBox(height: 24),
           ElevatedButton.icon(
             icon: const Icon(Icons.outbond),
             style: ElevatedButton.styleFrom(
@@ -78,6 +78,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
             onPressed: _launchURL,
             label: Text('New Channel',
                 style: Theme.of(context).textTheme.headline6!),
+          ),
+          const SizedBox(
+            height: 64,
           ),
           TextFormField(
             controller: _WRAPIcontroller,
@@ -90,6 +93,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
               }
               return null;
             },
+          ),
+          const SizedBox(
+            height: 64,
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,6 +176,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
               ),
             ],
           ),
+          const SizedBox(
+            height: 64,
+          ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shape: buttonRoundBorder,
@@ -181,7 +190,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                 }
               },
               child:
-                  Text('Save', style: Theme.of(context).textTheme.headline4!))
+                  Text('Save', style: Theme.of(context).textTheme.headline4!)),
         ],
       ),
     );

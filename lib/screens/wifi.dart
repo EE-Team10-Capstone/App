@@ -44,7 +44,7 @@ class _WiFiPageState extends State<WiFiPage> {
     return Form(
       key: _WifiKey,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
@@ -54,6 +54,7 @@ class _WiFiPageState extends State<WiFiPage> {
                   style: GoogleFonts.montserrat(
                     fontSize: 24,
                   ))),
+          const SizedBox(height: 32),
           TextFormField(
             controller: _ssidController,
             decoration: const InputDecoration(
@@ -65,6 +66,7 @@ class _WiFiPageState extends State<WiFiPage> {
               return null;
             },
           ),
+          const SizedBox(height: 48),
           TextFormField(
               controller: _useridController,
               keyboardType: TextInputType.emailAddress,
@@ -76,6 +78,9 @@ class _WiFiPageState extends State<WiFiPage> {
                 }
                 return null;
               }),
+          const SizedBox(
+            height: 48,
+          ),
           TextFormField(
             controller: _passwdController,
             obscureText: true,
@@ -88,6 +93,7 @@ class _WiFiPageState extends State<WiFiPage> {
               return null;
             },
           ),
+          const SizedBox(height: 128),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 40.0),
             child: ElevatedButton(
