@@ -4,7 +4,7 @@ import 'dart:convert' show utf8;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class BLE extends ChangeNotifier {
 // Initiating instances and global variable for services
@@ -12,6 +12,7 @@ class BLE extends ChangeNotifier {
   late List<BluetoothService> services;
   late BluetoothDevice ioTensor;
 
+//Go over stackoverflow example to find cleaner way to implement is connected
   bool isConnected = false;
 
 //WiFi Service & Characteristics
@@ -25,8 +26,8 @@ class BLE extends ChangeNotifier {
   final String wrapiUUID = "54532050-726F-7669-7369-6F6E00000001";
 
 //Begin Sampling Service and Flag UUID
-  final String bsUUID = "";
-  final String flagUUID = "";
+  final String bsUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA000";
+  final String flagUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
 
 // Bluetooth Connect Button for home page
   void scanBLE() {
@@ -35,11 +36,12 @@ class BLE extends ChangeNotifier {
         if (result.device.name == "UA-IOTENSR") {
           ioTensor = result.device;
           _connectBLE(result.device);
+          isConnected = true;
         }
       }
     });
 
-    fb.startScan();
+    fb.startScan(timeout: const Duration(seconds: 30));
   }
 
   void _connectBLE(BluetoothDevice device) async {

@@ -17,7 +17,7 @@ class _WiFiPageState extends State<WiFiPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
 
-  final _WifiKey = GlobalKey<FormState>();
+  final _wifiKey = GlobalKey<FormState>();
 
   late TextEditingController _ssidController;
   late TextEditingController _useridController;
@@ -34,7 +34,7 @@ class _WiFiPageState extends State<WiFiPage> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _WifiKey,
+      key: _wifiKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,10 +94,10 @@ class _WiFiPageState extends State<WiFiPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 100.0)),
                 onPressed: () async {
-                  // if (_WifiKey.currentState!.validate()) {
-                  //   context.read<BLE>().wifiWrite(_ssidController.text,
-                  //       _useridController.text, _passwdController.text);
-                  // }
+                  if (_wifiKey.currentState!.validate()) {
+                    context.read<BLE>().wifiWrite(_ssidController.text,
+                        _useridController.text, _passwdController.text);
+                  }
                 },
                 child: Text('Save',
                     style: Theme.of(context).textTheme.headline4!)),

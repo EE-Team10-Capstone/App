@@ -26,10 +26,10 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)));
 
-  final _TSKey = GlobalKey<FormState>();
+  final _tsKey = GlobalKey<FormState>();
 
   //Creating TextEditingControllers
-  late TextEditingController _WRAPIcontroller;
+  late TextEditingController _wrAPIController;
 
   //Initializing string values for text values
   String writeapikey = '';
@@ -45,7 +45,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   @override
   void initState() {
     super.initState();
-    _WRAPIcontroller = TextEditingController();
+    _wrAPIController = TextEditingController();
   }
 
   @override
@@ -56,7 +56,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _TSKey,
+      key: _tsKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +83,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
             height: 64,
           ),
           TextFormField(
-            controller: _WRAPIcontroller,
+            controller: _wrAPIController,
             maxLength: APImaxlength,
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), labelText: 'Write API Key'),
@@ -185,10 +185,9 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 100.0)),
               onPressed: () {
-                if (_TSKey.currentState!.validate()) {
-                  context.read<BLE>().tsWrite(_WRAPIcontroller.text);
+                if (_tsKey.currentState!.validate()) {
+                  context.read<BLE>().tsWrite(_wrAPIController.text);
                 }
-                _TSKey.currentState!.save();
               },
               child:
                   Text('Save', style: Theme.of(context).textTheme.headline4!)),

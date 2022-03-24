@@ -7,6 +7,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:app/providers/ble_provider.dart';
 import 'package:app/screens/setup.dart';
 
+//Readjust in the AM for deactivating BLE Connect button after it is pressed, do
+//something similar for when the device is disconnected
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
