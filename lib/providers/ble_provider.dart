@@ -20,6 +20,8 @@ class BLE extends ChangeNotifier {
   final String ssidUUID = "57694669-2050-726F-7669-73696F6E0001";
   final String usidUUID = "57694669-2050-726F-7669-73696F6E0002";
   final String pswdUUID = "57694669-2050-726F-7669-73696F6E0003";
+  final String wififlagchUUID = "57694669-2050-726F-7669-73696F6E0004";
+  final String wififlagdsUUID = "57694669-2050-726F-7669-73696F6E0104";
 
 //ThingSpeak Service & Characteristics
   final String tsUUID = "54532050-726F-7669-7369-6F6E00000000";
@@ -27,7 +29,8 @@ class BLE extends ChangeNotifier {
 
 //Begin Sampling Service and Flag UUID
   final String bsUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA000";
-  final String flagUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
+  final String bscharUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
+  final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
 
 // Bluetooth Connect Button for home page
   void scanBLE() {
@@ -72,6 +75,21 @@ class BLE extends ChangeNotifier {
             Future.delayed(const Duration(milliseconds: 1000), () {
               characteristic.write(utf8.encode(passwd));
             });
+          }
+        }
+      }
+    }
+
+    for (BluetoothService service in services) {
+      if (service.uuid == Guid(wifiUUID)) {
+        for (BluetoothCharacteristic characteristic
+            in service.characteristics) {
+          if (characteristic.uuid == Guid(wififlagchUUID)) {
+            for (BluetoothDescriptor desc in characteristic.descriptors) {
+              if (desc.uuid == Guid(wififlagdsUUID)) {
+                //Work on notification with hans
+              }
+            }
           }
         }
       }
