@@ -33,8 +33,8 @@ class BLE extends ChangeNotifier {
     fb.scanResults.listen((List<ScanResult> results) {
       for (ScanResult result in results) {
         if (result.device.name == "UA-IOTENSR") {
-          _connectBLE(result.device);
           ioTensor = result.device;
+          _connectBLE(result.device);
         }
       }
     });
