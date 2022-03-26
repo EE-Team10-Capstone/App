@@ -24,12 +24,23 @@ class _WiFiPageState extends State<WiFiPage> {
   late TextEditingController _useridController;
   late TextEditingController _passwdController;
 
+  int wifiConnFlag = 0;
+  late int isWifiConnected;
+
   @override
   void initState() {
     super.initState();
     _ssidController = TextEditingController();
     _useridController = TextEditingController();
     _passwdController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _ssidController.dispose();
+    _useridController.dispose();
+    _passwdController.dispose();
+    super.dispose();
   }
 
   @override
@@ -88,23 +99,58 @@ class _WiFiPageState extends State<WiFiPage> {
           ),
           const SizedBox(height: 128),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: buttonRoundBorder,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 100.0)),
-                onPressed: () async {
-                  if (_wifiKey.currentState!.validate()) {
-                    context.read<BLE>().wifiWrite(_ssidController.text,
-                        _useridController.text, _passwdController.text);
-                  }
-                },
-                child: Text('Save',
-                    style: Theme.of(context).textTheme.headline4!)),
-          )
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: saveButton())
         ],
       ),
+    );
+  }
+
+  Widget saveButton() {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: buttonRoundBorder,
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 100.0)),
+        onPressed: () async {
+          if (_wifiKey.currentState!.validate()) {
+            context.read<BLE>().wifiWrite(_ssidController.text,
+                _useridController.text, _passwdController.text);
+          }
+          while (isWifiConnected == 0) {
+            isWifiConnected =
+                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+          }
+
+          if (isWifiConnected == 1) {
+            showDialog(
+              context: context,
+              builder: (_) => connectedAlert(),
+              barrierDismissible: true,
+            );
+          } else if (isWifiConnected == 2) {
+            showDialog(
+              context: context,
+              builder: (_) => notconnectedAlert(),
+              barrierDismissible: true,
+            );
+          }
+        },
+        child: Text('Save', style: Theme.of(context).textTheme.headline4!));
+  }
+
+  Widget connectedAlert() {
+    return const AlertDialog(
+      title: Text("Device WiFi Connection"),
+      content: Text("WiFi Connection Successful"),
+    );
+  }
+
+  Widget notconnectedAlert() {
+    return const AlertDialog(
+      title: Text("Device WiFi Connection"),
+      content: Text(
+          "WiFi Connection Unsuccessful. Please confirm credentials and try again"),
     );
   }
 }

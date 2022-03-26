@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/providers/ble_provider.dart';
-import 'package:app/providers/wifi_provider.dart';
 import 'package:app/screens/home.dart';
 
 void main() {
@@ -23,7 +22,6 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => BLE()),
-      ChangeNotifierProvider(create: (_) => WIFI()),
     ],
     child: const MyApp(),
   ));

@@ -79,21 +79,21 @@ class BLE extends ChangeNotifier {
         }
       }
     }
+  }
 
+  Future<int> wifiConnVerify(int wifiConnFlag) async {
     for (BluetoothService service in services) {
       if (service.uuid == Guid(wifiUUID)) {
         for (BluetoothCharacteristic characteristic
             in service.characteristics) {
           if (characteristic.uuid == Guid(wififlagchUUID)) {
-            for (BluetoothDescriptor desc in characteristic.descriptors) {
-              if (desc.uuid == Guid(wififlagdsUUID)) {
-                //Work on notification with hans
-              }
-            }
+            List<int> wifiFlags = await characteristic.read();
+            wifiConnFlag = wifiFlags.single;
           }
         }
       }
     }
+    return wifiConnFlag;
   }
 
   void tsWrite(
