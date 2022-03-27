@@ -24,8 +24,9 @@ class _WiFiPageState extends State<WiFiPage> {
   late TextEditingController _useridController;
   late TextEditingController _passwdController;
 
+  bool isReading = false;
   int wifiConnFlag = 0;
-  late int isWifiConnected;
+  int isWifiConnected = 0;
 
   @override
   void initState() {
@@ -121,8 +122,12 @@ class _WiFiPageState extends State<WiFiPage> {
           // Rework this. READ functions  within the verify function double up and cause an error
 
           while (isWifiConnected == 0) {
-            isWifiConnected =
-                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+            if (isReading == false) {
+              isReading = true;
+              isWifiConnected =
+                  await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+              isReading = false;
+            }
           }
 
           if (isWifiConnected == 1) {

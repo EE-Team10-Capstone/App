@@ -40,7 +40,12 @@ class HomePage extends StatelessWidget {
                         .textTheme
                         .headline6!
                         .copyWith(color: Colors.white)),
-                onPressed: () => context.read<BLE>().scanBLE(),
+                onPressed: () async {
+                  await context.read<BLE>().scanBLE();
+                  await context
+                      .read<BLE>()
+                      .connectBLE(context.read<BLE>().ioTensor);
+                },
                 style: ElevatedButton.styleFrom(
                   padding: buttonPadding,
                   shape: buttonRoundBorder,

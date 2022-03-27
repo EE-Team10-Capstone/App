@@ -33,32 +33,31 @@ class BLE extends ChangeNotifier {
   final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
 
 // Bluetooth Connect Button for home page
-  void scanBLE() {
+  Future<void> scanBLE() async {
+    fb.startScan(timeout: const Duration(seconds: 30));
+
     fb.scanResults.listen((List<ScanResult> results) {
       for (ScanResult result in results) {
         if (result.device.name == "UA-IOTENSR") {
           ioTensor = result.device;
-          _connectBLE(result.device);
-          isConnected = true;
         }
       }
     });
 
-    fb.startScan(timeout: const Duration(seconds: 30));
+    fb.stopScan();
   }
 
-  void _connectBLE(BluetoothDevice device) async {
-    fb.stopScan();
-    try {
-      await device.connect();
-    } catch (error) {
-      throw ("Device already connected");
+  Future<void> connectBLE(BluetoothDevice device) async {
+    List<BluetoothDevice> connectedDevices = await fb.connectedDevices;
+    if (connectedDevices.contains(device)) {
+      print("Device is already connected");
+    } else {
+      device.connect();
     }
+    services = await device.discoverServices();
   }
 
   void wifiWrite(String ssid, String userid, String passwd) async {
-    services = await ioTensor.discoverServices();
-
     for (BluetoothService service in services) {
       if (service.uuid == Guid(wifiUUID)) {
         for (BluetoothCharacteristic characteristic
@@ -82,7 +81,6 @@ class BLE extends ChangeNotifier {
   }
 
   Future<int> wifiConnVerify(int wifiConnFlag) async {
-    services = await ioTensor.discoverServices();
     for (BluetoothService service in services) {
       if (service.uuid == Guid(wifiUUID)) {
         for (BluetoothCharacteristic characteristic
