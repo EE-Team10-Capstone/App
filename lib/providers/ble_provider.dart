@@ -82,6 +82,7 @@ class BLE extends ChangeNotifier {
   }
 
   Future<int> wifiConnVerify(int wifiConnFlag) async {
+    services = await ioTensor.discoverServices();
     for (BluetoothService service in services) {
       if (service.uuid == Guid(wifiUUID)) {
         for (BluetoothCharacteristic characteristic

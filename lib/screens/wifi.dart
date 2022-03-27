@@ -117,9 +117,11 @@ class _WiFiPageState extends State<WiFiPage> {
             context.read<BLE>().wifiWrite(_ssidController.text,
                 _useridController.text, _passwdController.text);
           }
+
+          // Rework this. READ functions  within the verify function double up and cause an error
+
           while (isWifiConnected == 0) {
-            isWifiConnected =
-                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+            isWifiConnected = context.read<BLE>().wifiConnVerify(wifiConnFlag);
           }
 
           if (isWifiConnected == 1) {
