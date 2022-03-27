@@ -35,16 +35,13 @@ class HomePage extends StatelessWidget {
           children: [
             ElevatedButton.icon(
                 icon: const Icon(Icons.bluetooth),
-                label: Text('BlueTooth Connect',
+                label: Text('Bluetooth Connect',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(color: Colors.white)),
                 onPressed: () async {
-                  await context.read<BLE>().scanBLE();
-                  await context
-                      .read<BLE>()
-                      .connectBLE(context.read<BLE>().ioTensor);
+                  await context.read<BLE>().connectBLE();
                 },
                 style: ElevatedButton.styleFrom(
                   padding: buttonPadding,

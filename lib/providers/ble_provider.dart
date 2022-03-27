@@ -33,7 +33,7 @@ class BLE extends ChangeNotifier {
   final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
 
 // Bluetooth Connect Button for home page
-  Future<void> scanBLE() async {
+  Future<BluetoothDevice> _scanBLE() async {
     fb.startScan(timeout: const Duration(seconds: 30));
 
     fb.scanResults.listen((List<ScanResult> results) {
@@ -45,9 +45,12 @@ class BLE extends ChangeNotifier {
     });
 
     fb.stopScan();
+    return ioTensor;
   }
 
-  Future<void> connectBLE(BluetoothDevice device) async {
+  Future<void> connectBLE() async {
+    BluetoothDevice device = await _scanBLE();
+
     List<BluetoothDevice> connectedDevices = await fb.connectedDevices;
     if (connectedDevices.contains(device)) {
       print("Device is already connected");
