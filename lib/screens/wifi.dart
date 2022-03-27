@@ -121,7 +121,8 @@ class _WiFiPageState extends State<WiFiPage> {
           // Rework this. READ functions  within the verify function double up and cause an error
 
           while (isWifiConnected == 0) {
-            isWifiConnected = context.read<BLE>().wifiConnVerify(wifiConnFlag);
+            isWifiConnected =
+                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
           }
 
           if (isWifiConnected == 1) {
