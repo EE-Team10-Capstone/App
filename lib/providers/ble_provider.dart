@@ -11,6 +11,7 @@ class BLE extends ChangeNotifier {
   FlutterBlue fb = FlutterBlue.instance;
   late List<BluetoothService> services;
   late BluetoothDevice ioTensor;
+  BluetoothDeviceState ioTensorConnState = BluetoothDeviceState.disconnected;
 
 //Go over stackoverflow example to find cleaner way to implement is connected
   bool isConnected = false;
@@ -32,32 +33,42 @@ class BLE extends ChangeNotifier {
   final String bscharUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
   final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
 
-// Bluetooth Connect Button for home page
-  Future<BluetoothDevice> _scanBLE() async {
-    fb.startScan(timeout: const Duration(seconds: 30));
+// Scan for our Bluetooth device
+  Future<void> scanBLE() async {
+    fb.startScan(timeout: const Duration(seconds: 10));
 
-    fb.scanResults.listen((List<ScanResult> results) {
-      for (ScanResult result in results) {
-        if (result.device.name == "UA-IOTENSR") {
-          ioTensor = result.device;
+    // Source of all my mfin problems... doesn't return fucking anything to the
+    // user
+    fb.scanResults.listen(
+      (List<ScanResult> results) {
+        for (ScanResult result in results) {
+          if (result.device.name == "UA-IOTENSR") {
+            _connectBLE(result.device);
+          }
         }
-      }
-    });
+      },
+    );
 
     fb.stopScan();
-    return ioTensor;
+
+    //  Collecting list of services and storing it into global services variable.
+    List<BluetoothDevice> connectedDevices = await fb.connectedDevices;
+    for (BluetoothDevice device in connectedDevices) {
+      if (device.name == "UA-IOTENSR") {
+        //
+        services = await device.discoverServices();
+      }
+    }
   }
 
-  Future<void> connectBLE() async {
-    BluetoothDevice device = await _scanBLE();
-
-    List<BluetoothDevice> connectedDevices = await fb.connectedDevices;
-    if (connectedDevices.contains(device)) {
-      print("Device is already connected");
-    } else {
+// Connect to device specified in the scanresult listener
+  void _connectBLE(BluetoothDevice device) async {
+    if (ioTensorConnState == BluetoothDeviceState.disconnected) {
       device.connect();
+      ioTensorConnState = BluetoothDeviceState.connected;
+    } else if (ioTensorConnState == BluetoothDeviceState.connected) {
+      // Have Alert dialog here.
     }
-    services = await device.discoverServices();
   }
 
   void wifiWrite(String ssid, String userid, String passwd) async {
@@ -101,7 +112,6 @@ class BLE extends ChangeNotifier {
   void tsWrite(
       String
           wrapikey /*, String cochan, String tempchan, String rhchan*/) async {
-    services = await ioTensor.discoverServices();
     for (BluetoothService service in services) {
       if (service.uuid == Guid(tsUUID)) {
         for (BluetoothCharacteristic characteristic

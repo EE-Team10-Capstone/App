@@ -19,6 +19,7 @@ class _WiFiPageState extends State<WiFiPage> {
       borderRadius: BorderRadius.all(Radius.circular(20)));
 
   final _wifiKey = GlobalKey<FormState>();
+  final _sharepreferences = SharedPreferences.getInstance();
 
   late TextEditingController _ssidController;
   late TextEditingController _useridController;
@@ -28,12 +29,26 @@ class _WiFiPageState extends State<WiFiPage> {
   int wifiConnFlag = 0;
   int isWifiConnected = 0;
 
+  Future<List<String?>> collectPrevSaved() async {
+    // Waiting for the shared preference foler to be accessed
+    final SharedPreferences sharedprefs = await _sharepreferences;
+
+    String? prevSSID = sharedprefs.getString('ssid_saved');
+    String? prevUserID = sharedprefs.getString('userid_saved');
+    String? prevPassWD = sharedprefs.getString('passwd_saved');
+
+    List<String?> prevSaved = [prevSSID, prevUserID, prevPassWD];
+    return prevSaved;
+  }
+
   @override
   void initState() {
     super.initState();
     _ssidController = TextEditingController();
     _useridController = TextEditingController();
     _passwdController = TextEditingController();
+
+    collectPrevSaved();
   }
 
   @override
@@ -115,6 +130,7 @@ class _WiFiPageState extends State<WiFiPage> {
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 100.0)),
         onPressed: () async {
           if (_wifiKey.currentState!.validate()) {
+            ;
             context.read<BLE>().wifiWrite(_ssidController.text,
                 _useridController.text, _passwdController.text);
           }
