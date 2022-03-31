@@ -52,12 +52,8 @@ class BLE extends ChangeNotifier {
     fb.stopScan();
 
     //  Collecting list of services and storing it into global services variable.
-    List<BluetoothDevice> connectedDevices = await fb.connectedDevices;
-    for (BluetoothDevice device in connectedDevices) {
-      if (device.name == "UA-IOTENSR") {
-        //
-        services = await device.discoverServices();
-      }
+    if (ioTensorConnState == BluetoothDeviceState.connected) {
+      services = await ioTensor.discoverServices();
     }
   }
 
