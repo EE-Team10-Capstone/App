@@ -40,7 +40,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
   String channelRH = '3';
 
   //Defining ThingSpeak Credential max lengths
-  int APImaxlength = 16;
+  int apiMaxlength = 16;
 
   @override
   void initState() {
@@ -84,11 +84,11 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
           ),
           TextFormField(
             controller: _wrAPIController,
-            maxLength: APImaxlength,
+            maxLength: apiMaxlength,
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), labelText: 'Write API Key'),
             validator: (text) {
-              if (text == null || text.length != APImaxlength) {
+              if (text == null || text.length != apiMaxlength) {
                 return 'Please Enter the Correct Write API Key';
               }
               return null;
