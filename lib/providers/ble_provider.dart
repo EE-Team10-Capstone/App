@@ -3,12 +3,12 @@ import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 // import 'package:provider/provider.dart';
 
 class BLE extends ChangeNotifier {
 // Initiating instances and global variable for services
-  FlutterBlue fb = FlutterBlue.instance;
+  FlutterBluePlus fb = FlutterBluePlus.instance;
   late List<BluetoothService> services;
   late BluetoothDevice ioTensor;
   BluetoothDeviceState ioTensorConnState = BluetoothDeviceState.disconnected;
