@@ -70,7 +70,9 @@ class HomePage extends StatelessWidget {
                       .copyWith(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                   padding: buttonPadding, shape: buttonRoundBorder),
-              onPressed: () {},
+              onPressed: () async {
+                context.read<BLE>().bsFlagSet();
+              },
             ),
           ],
         ),

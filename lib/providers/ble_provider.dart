@@ -16,6 +16,9 @@ class BLE extends ChangeNotifier {
 //Go over stackoverflow example to find cleaner way to implement is connected
   bool isConnected = false;
 
+// Begin Sampling Flag Definition: 0 means device is not sampling, 1 means sampling has begun
+  int bsFlag = 0;
+
 //WiFi Service & Characteristics
   final String wifiUUID = "57694669-2050-726f-7669-73696f6e0000";
   final String ssidUUID = "57694669-2050-726F-7669-73696F6E0001";
@@ -30,8 +33,7 @@ class BLE extends ChangeNotifier {
 
 //Begin Sampling Service and Flag UUID
   final String bsUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA000";
-  final String bscharUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
-  final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
+  final String bsflagUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
 
 // Scan for our Bluetooth device
   scanBLE() {
@@ -112,14 +114,17 @@ class BLE extends ChangeNotifier {
     }
   } // tsWrite end
 
-  // void beginSampling() {
-  //   for (BluetoothService service in services) {
-  //     if (service.uuid == Guid(bsUUID)) {
-  //       for (BluetoothCharacteristic characteristic
-  //           in service.characteristics) {
-  //             if
-  //           }
-  //     }
-  //   }
-  // }
+  void bsFlagSet() {
+    for (BluetoothService service in services) {
+      if (service.uuid == Guid(bsUUID)) {
+        for (BluetoothCharacteristic characteristic
+            in service.characteristics) {
+          if (characteristic.uuid == Guid(bsflagUUID)) {
+            bsFlag = 1;
+            characteristic.write([bsFlag]);
+          }
+        }
+      }
+    }
+  }
 }

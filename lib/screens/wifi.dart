@@ -130,7 +130,6 @@ class _WiFiPageState extends State<WiFiPage> {
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 100.0)),
         onPressed: () async {
           if (_wifiKey.currentState!.validate()) {
-            ;
             context.read<BLE>().wifiWrite(_ssidController.text,
                 _useridController.text, _passwdController.text);
           }
