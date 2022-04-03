@@ -129,31 +129,38 @@ class _WiFiPageState extends State<WiFiPage> {
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 100.0)),
         onPressed: () async {
+          // Write Characteristics from the app to the device
           if (_wifiKey.currentState!.validate()) {
             context.read<BLE>().wifiWrite(_ssidController.text,
                 _useridController.text, _passwdController.text);
           }
 
-          // Rework this. READ functions  within the verify function double up and cause an error
-          // Future.delayed(const Duration(seconds: 15), () async {
-          //   await context.read<BLE>().wifiConnVerify(wifiConnFlag);
-          // });
+          // Read the wifi connect flag from the device
+          await Future.delayed(const Duration(seconds: 15), () async {
+            isWifiConnected =
+                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+          });
 
-          // if (isWifiConnected == 1) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (_) => connectedAlert(),
-          //     barrierDismissible: true,
-          //   );
-          // } else if (isWifiConnected == 2) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (_) => notconnectedAlert(),
-          //     barrierDismissible: true,
-          //   );
-          // }
+          // Take result from connect flag and display result to user
+          _wifiVerify(isWifiConnected);
         },
         child: Text('Save', style: Theme.of(context).textTheme.headline4!));
+  }
+
+  void _wifiVerify(int isWifiConnected) {
+    if (isWifiConnected == 1) {
+      showDialog(
+        context: context,
+        builder: (_) => connectedAlert(),
+        barrierDismissible: true,
+      );
+    } else if (isWifiConnected == 2) {
+      showDialog(
+        context: context,
+        builder: (_) => notconnectedAlert(),
+        barrierDismissible: true,
+      );
+    }
   }
 
   Widget connectedAlert() {
