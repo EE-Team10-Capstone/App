@@ -135,15 +135,9 @@ class _WiFiPageState extends State<WiFiPage> {
           }
 
           // Rework this. READ functions  within the verify function double up and cause an error
-
-          // while (isWifiConnected == 0) {
-          //   if (isReading == false) {
-          //     isReading = true;
-          //     isWifiConnected =
-          //         // await context.read<BLE>().wifiConnVerify(wifiConnFlag);
-          //     isReading = false;
-          //   }
-          // }
+          // Future.delayed(const Duration(seconds: 15), () async {
+          //   await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+          // });
 
           // if (isWifiConnected == 1) {
           //   showDialog(
