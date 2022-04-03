@@ -34,37 +34,29 @@ class BLE extends ChangeNotifier {
   final String bsdescUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA101";
 
 // Scan for our Bluetooth device
-  Future<void> scanBLE() async {
-    fb.startScan(timeout: const Duration(seconds: 10));
-
-    // Source of all my mfin problems... doesn't return fucking anything to the
-    // user
-    fb.scanResults.listen(
-      (List<ScanResult> results) {
-        for (ScanResult result in results) {
-          if (result.device.name == "UA-IOTENSR") {
-            _connectBLE(result.device);
-          }
+  scanBLE() {
+    fb.scanResults.listen((List<ScanResult> results) {
+      for (ScanResult result in results) {
+        if (result.device.name == "UA-IOTENSR") {
+          _connectBLE(result.device);
         }
-      },
-    );
+      }
+    });
 
-    fb.stopScan();
-
-    //  Collecting list of services and storing it into global services variable.
-    if (ioTensorConnState == BluetoothDeviceState.connected) {
-      services = await ioTensor.discoverServices();
-    }
+    fb.startScan();
   }
 
 // Connect to device specified in the scanresult listener
   void _connectBLE(BluetoothDevice device) async {
-    if (ioTensorConnState == BluetoothDeviceState.disconnected) {
-      device.connect();
-      ioTensorConnState = BluetoothDeviceState.connected;
-    } else if (ioTensorConnState == BluetoothDeviceState.connected) {
-      // Have Alert dialog here.
+    fb.stopScan();
+
+    try {
+      await device.connect();
+    } catch (error) {
+      throw ("Device already connected");
     }
+
+    services = await device.discoverServices();
   }
 
   void wifiWrite(String ssid, String userid, String passwd) async {
@@ -90,20 +82,20 @@ class BLE extends ChangeNotifier {
     }
   }
 
-  Future<int> wifiConnVerify(int wifiConnFlag) async {
-    for (BluetoothService service in services) {
-      if (service.uuid == Guid(wifiUUID)) {
-        for (BluetoothCharacteristic characteristic
-            in service.characteristics) {
-          if (characteristic.uuid == Guid(wififlagchUUID)) {
-            List<int> wifiFlags = await characteristic.read();
-            wifiConnFlag = wifiFlags.single;
-          }
-        }
-      }
-    }
-    return wifiConnFlag;
-  }
+  // Future<int> wifiConnVerify(int wifiConnFlag) async {
+  //   for (BluetoothService service in services) {
+  //     if (service.uuid == Guid(wifiUUID)) {
+  //       for (BluetoothCharacteristic characteristic
+  //           in service.characteristics) {
+  //         if (characteristic.uuid == Guid(wififlagchUUID)) {
+  //           List<int> wifiFlags = await characteristic.read();
+  //           wifiConnFlag = wifiFlags.single;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return wifiConnFlag;
+  // }
 
   void tsWrite(
       String
