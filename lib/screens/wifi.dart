@@ -135,23 +135,24 @@ class _WiFiPageState extends State<WiFiPage> {
           }
 
           // Rework this. READ functions  within the verify function double up and cause an error
-          Future.delayed(const Duration(seconds: 15), () async {
-            await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+          await Future.delayed(const Duration(seconds: 15), () async {
+            isWifiConnected =
+                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
           });
 
-          // if (isWifiConnected == 1) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (_) => connectedAlert(),
-          //     barrierDismissible: true,
-          //   );
-          // } else if (isWifiConnected == 2) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (_) => notconnectedAlert(),
-          //     barrierDismissible: true,
-          //   );
-          // }
+          if (isWifiConnected == 1) {
+            showDialog(
+              context: context,
+              builder: (_) => connectedAlert(),
+              barrierDismissible: true,
+            );
+          } else if (isWifiConnected == 2) {
+            showDialog(
+              context: context,
+              builder: (_) => notconnectedAlert(),
+              barrierDismissible: true,
+            );
+          }
         },
         child: Text('Save', style: Theme.of(context).textTheme.headline4!));
   }
