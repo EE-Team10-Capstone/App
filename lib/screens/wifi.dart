@@ -61,6 +61,8 @@ class _WiFiPageState extends State<WiFiPage> {
 
   @override
   Widget build(BuildContext context) {
+    var bleProvider = context.watch<BLE>();
+
     return Form(
       key: _wifiKey,
       child: Column(
@@ -116,35 +118,47 @@ class _WiFiPageState extends State<WiFiPage> {
           const SizedBox(height: 128),
           Container(
               padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: saveButton())
+              child: saveButton(bleProvider))
         ],
       ),
     );
   }
 
-  Widget saveButton() {
-    return ElevatedButton(
+  Widget saveButton(BLE bleProvider) {
+    return ElevatedButton.icon(
+        icon: isReading
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2.0,
+              )
+            : const Icon(Icons.save),
         style: ElevatedButton.styleFrom(
             shape: buttonRoundBorder,
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 100.0)),
         onPressed: () async {
+          setState(() {
+            isReading = true;
+          });
           // Write Characteristics from the app to the device
           if (_wifiKey.currentState!.validate()) {
-            context.read<BLE>().wifiWrite(_ssidController.text,
-                _useridController.text, _passwdController.text);
+            bleProvider.wifiWrite(_ssidController.text, _useridController.text,
+                _passwdController.text);
           }
 
           // Read the wifi connect flag from the device
           await Future.delayed(const Duration(seconds: 15), () async {
-            isWifiConnected =
-                await context.read<BLE>().wifiConnVerify(wifiConnFlag);
+            isWifiConnected = await bleProvider.wifiConnVerify(wifiConnFlag);
           });
 
           // Take result from connect flag and display result to user
           _wifiVerify(isWifiConnected);
+
+          setState(() {
+            isReading = false;
+          });
         },
-        child: Text('Save', style: Theme.of(context).textTheme.headline4!));
+        label: Text('Save', style: Theme.of(context).textTheme.headline4!));
   }
 
   void _wifiVerify(int isWifiConnected) {
