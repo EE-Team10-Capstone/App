@@ -154,7 +154,7 @@ class _WiFiPageState extends State<WiFiPage> {
         builder: (_) => connectedAlert(),
         barrierDismissible: true,
       );
-    } else if (isWifiConnected == 2) {
+    } else if (isWifiConnected == 0) {
       showDialog(
         context: context,
         builder: (_) => notconnectedAlert(),
