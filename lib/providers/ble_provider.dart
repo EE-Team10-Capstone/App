@@ -16,6 +16,8 @@ class BLE extends ChangeNotifier {
 //Go over stackoverflow example to find cleaner way to implement is connected
   bool isConnected = false;
 
+  StreamSubscription? _statusStream = null;
+
 // Begin Sampling Flag Definition: 0 means device is not sampling, 1 means sampling has begun
   int bsFlag = 0;
 
@@ -36,7 +38,7 @@ class BLE extends ChangeNotifier {
   final String bsflagUUID = "5C58C20C-B466-4A2E-A8AB-B66BADBBA001";
 
 // Scan for our Bluetooth device
-  scanBLE() {
+  void scanBLE() {
     fb.scanResults.listen((List<ScanResult> results) {
       for (ScanResult result in results) {
         if (result.device.name == "UA-IOTENSR") {
@@ -49,11 +51,31 @@ class BLE extends ChangeNotifier {
   }
 
 // Connect to device specified in the scanresult listener
-  void _connectBLE(BluetoothDevice device) async {
+  Future<void> _connectBLE(BluetoothDevice device) async {
     fb.stopScan();
 
     try {
       await device.connect();
+      _statusStream = device.state.listen((event) {
+        switch (event) {
+          case BluetoothDeviceState.connected:
+            isConnected = true;
+            notifyListeners();
+            break;
+          case BluetoothDeviceState.connecting:
+            isConnected = true;
+            notifyListeners();
+            break;
+          case BluetoothDeviceState.disconnected:
+            isConnected = false;
+            notifyListeners();
+            break;
+          case BluetoothDeviceState.disconnecting:
+            isConnected = true;
+            notifyListeners();
+            break;
+        }
+      });
     } catch (error) {
       throw ("Device already connected");
     }
@@ -126,5 +148,11 @@ class BLE extends ChangeNotifier {
         }
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _statusStream?.cancel();
+    super.dispose();
   }
 }

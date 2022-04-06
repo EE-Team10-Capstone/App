@@ -9,17 +9,24 @@ import 'package:app/screens/setup.dart';
 
 //Readjust in the AM for deactivating BLE Connect button after it is pressed, do
 //something similar for when the device is disconnected
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     RoundedRectangleBorder buttonRoundBorder = const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)));
     EdgeInsets buttonPadding =
         const EdgeInsets.symmetric(vertical: 16.0, horizontal: 60);
+
+    var bleProvider = context.watch<BLE>();
 
     return Scaffold(
       appBar: AppBar(
@@ -40,9 +47,7 @@ class HomePage extends StatelessWidget {
                         .textTheme
                         .headline6!
                         .copyWith(color: Colors.white)),
-                onPressed: () async {
-                  await context.read<BLE>().scanBLE();
-                },
+                onPressed: bleProvider.isConnected ? null : bleProvider.scanBLE,
                 style: ElevatedButton.styleFrom(
                   padding: buttonPadding,
                   shape: buttonRoundBorder,
@@ -70,8 +75,8 @@ class HomePage extends StatelessWidget {
                       .copyWith(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                   padding: buttonPadding, shape: buttonRoundBorder),
-              onPressed: () async {
-                context.read<BLE>().bsFlagSet();
+              onPressed: () {
+                bleProvider.bsFlagSet();
               },
             ),
           ],
