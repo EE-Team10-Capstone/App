@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,7 +29,7 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
 
   //Creating TextEditingControllers
   late TextEditingController _wrAPIController;
-
+  bool isWriting = false;
   //Initializing string values for text values
   String writeapikey = '';
 
@@ -55,6 +54,8 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
 
   @override
   Widget build(BuildContext context) {
+    var bleProvider = context.watch<BLE>();
+
     return Form(
       key: _tsKey,
       child: Column(
@@ -179,20 +180,43 @@ class _ThingSpeakState extends State<ThingSpeakPage> {
           const SizedBox(
             height: 64,
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
+              icon: isWriting
+                  ? const CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2.0,
+                    )
+                  : const Icon(Icons.save),
               style: ElevatedButton.styleFrom(
                   shape: buttonRoundBorder,
                   padding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 100.0)),
               onPressed: () {
+                setState(() {
+                  isWriting = true;
+                });
+
                 if (_tsKey.currentState!.validate()) {
-                  context.read<BLE>().tsWrite(_wrAPIController.text);
+                  bleProvider.tsWrite(_wrAPIController.text);
                 }
+
+                showDialog(context: context, builder: (_) => tsAlert());
+
+                setState(() {
+                  isWriting = false;
+                });
               },
-              child:
+              label:
                   Text('Save', style: Theme.of(context).textTheme.headline4!)),
         ],
       ),
+    );
+  }
+
+  Widget tsAlert() {
+    return const AlertDialog(
+      title: Text("ThingSpeak Credential Write"),
+      content: Text("Complete"),
     );
   }
 }
