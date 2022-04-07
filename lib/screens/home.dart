@@ -75,9 +75,7 @@ class _HomePageState extends State<HomePage> {
                       .copyWith(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                   padding: buttonPadding, shape: buttonRoundBorder),
-              onPressed: () {
-                bleProvider.bsFlagSet();
-              },
+              onPressed: bleProvider.isConnected ? bleProvider.bsFlagSet : null,
             ),
           ],
         ),
